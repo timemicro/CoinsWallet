@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.Bitcoin", "TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj", "{AA183161-8AB0-4856-9742-79745465CF3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.WebAPI", "TimemicroCore.CoinsWallet.WebAPI\TimemicroCore.CoinsWallet.WebAPI.csproj", "{C4023271-1C8B-46C9-B22C-1DE98CA4685D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA183161-8AB0-4856-9742-79745465CF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA183161-8AB0-4856-9742-79745465CF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA183161-8AB0-4856-9742-79745465CF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA183161-8AB0-4856-9742-79745465CF3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4023271-1C8B-46C9-B22C-1DE98CA4685D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4023271-1C8B-46C9-B22C-1DE98CA4685D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4023271-1C8B-46C9-B22C-1DE98CA4685D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4023271-1C8B-46C9-B22C-1DE98CA4685D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0136D57D-96CF-47BF-A1C0-0D12FE695C5C}
+	EndGlobalSection
+EndGlobal
