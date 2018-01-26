@@ -11,5 +11,7 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.PO
         public string TxId { get; set; }
 
         public int Confirmations { get; set; }
+
+        public int State { get; set; }
     }
 }

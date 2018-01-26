@@ -10,10 +10,12 @@ namespace TimemicroCore.CoinsWallet.Api
         private IDictionary<string, IApiService> services = new Dictionary<string, IApiService>();
 
         public ApiServices(
-              BTCNewAddressApiService btcNewAddressApiService
+              BTCConfirmTransactionApiService btcConfirmTransactionApiService
+            , BTCNewAddressApiService btcNewAddressApiService
             , BTCSyncBlockApiService btcSyncBlockApiService
             , BTCSyncTransactionApiService btcSyncTransactionApiService)
         {
+            services[btcConfirmTransactionApiService.Name] = btcConfirmTransactionApiService;
             services[btcNewAddressApiService.Name] = btcNewAddressApiService;
             services[btcSyncBlockApiService.Name] = btcSyncBlockApiService;
             services[btcSyncTransactionApiService.Name] = btcSyncTransactionApiService;

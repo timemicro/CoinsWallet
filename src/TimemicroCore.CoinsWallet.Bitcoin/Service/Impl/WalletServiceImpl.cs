@@ -39,7 +39,49 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
 
         public void ConfirmTransaction()
         {
-            throw new NotImplementedException();
+            var transactions = context.Transactions.Where(x => x.Confirmations <= 1).Take(5);
+
+            using (var tran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var transactionPO in transactions)
+                    {
+                        var transactionResp = rpcClient.Call<GetTransactionResponse>(JsonRPCMethods.GetTransaction, new GetTransactionParams()
+                        {
+                            TxId = transactionPO.TxId
+                        });
+                        if (transactionResp.Result.Confirmations >= 2)
+                        {
+                            transactionPO.Confirmations = transactionResp.Result.Confirmations;
+                            transactionPO.State = 1;
+
+                            var transactionDetails = context.TransactionDetails.Where(x => x.TxId == transactionPO.TxId && x.Category == "receive");
+                            foreach (var td in transactionDetails)
+                            {
+                                var receiveNotifyLog = new ReceiveNotifyLogPO()
+                                {
+                                    Address = td.Address,
+                                    Amount = td.Amount,
+                                    NotifiedCount = 0,
+                                    NotifyResponseText = string.Empty,
+                                    NextNotifyTime = DateTime.Now,
+                                    TxId = transactionPO.TxId
+                                };
+
+                                context.ReceiveNotifyLogs.Add(receiveNotifyLog);
+                            }
+                        }
+                    }
+
+                    context.SaveChanges();
+                    tran.Commit();
+                }
+                catch (Exception)
+                {
+                    tran.Rollback();
+                }
+            }
         }
 
         public void SyncBlock()
@@ -88,10 +130,11 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
 
         public void SyncTransaction(int blockCount)
         {
-            var trans = new List<TransactionPO>();
-            var trandetails = new List<TransactionDetailsPO>();
-
+            var transactions = new List<TransactionPO>();
+            var transactionDetails = new List<TransactionDetailsPO>();
+            var receiveNotifyLogs = new List<ReceiveNotifyLogPO>();
             var blocks = context.Blocks.Where(x => x.State == 0).OrderBy(x => x.Height).Take(blockCount);
+
             foreach (var block in blocks)
             {
                 var blockResp = rpcClient.Call<GetBlockResponse>(JsonRPCMethods.GetBlock, new GetBlockParams()
@@ -110,7 +153,8 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
                         {
                             BlockHash = block.Hash,
                             TxId = transactionResp.Result.TxId,
-                            Confirmations = transactionResp.Result.Confirmations
+                            Confirmations = transactionResp.Result.Confirmations,
+                            State = transactionResp.Result.Confirmations >= 2 ? 1 : 0
                         };
                         foreach (var item in transactionResp.Result.Details)
                         {
@@ -121,25 +165,57 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
                                 Category = item.Category,
                                 TxId = txid
                             };
-                            trandetails.Add(td);
+                            transactionDetails.Add(td);
+
+                            if (transactionResp.Result.Confirmations >= 2 && item.Category == "receive")
+                            {
+                                receiveNotifyLogs.Add(new ReceiveNotifyLogPO()
+                                {
+                                    Address = item.Address,
+                                    Amount = item.Amount,
+                                    NextNotifyTime = DateTime.Now,
+                                    NotifiedCount = 0,
+                                    NotifyResponseText = string.Empty,
+                                    TxId = txid
+                                });
+                            }
                         }
-                        trans.Add(tranPO);
+                        transactions.Add(tranPO);
                     }
                 }
-                block.State = 1;
             }
 
-            foreach (var item in trans)
+            using (var tran = context.Database.BeginTransaction())
             {
-                context.Transactions.Add(item);
-            }
+                try
+                {
+                    foreach (var block in blocks)
+                    {
+                        block.State = 1;
+                    }
+                    foreach (var item in transactions)
+                    {
+                        context.Transactions.Add(item);
+                    }
 
-            foreach (var item in trandetails)
-            {
-                context.TransactionDetails.Add(item);
-            }
+                    foreach (var item in transactionDetails)
+                    {
+                        context.TransactionDetails.Add(item);
+                    }
 
-            context.SaveChanges();
+                    foreach (var item in receiveNotifyLogs)
+                    {
+                        context.ReceiveNotifyLogs.Add(item);
+                    }
+
+                    context.SaveChanges();
+                    tran.Commit();
+                }
+                catch (Exception)
+                {
+                    tran.Rollback();
+                }
+            }
         }
     }
 }
