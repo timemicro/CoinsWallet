@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.WebAPI", "TimemicroCore.CoinsWallet.WebAPI\TimemicroCore.CoinsWallet.WebAPI.csproj", "{C4023271-1C8B-46C9-B22C-1DE98CA4685D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.Bitcoin.RPCClient", "..\..\Bitcoin.RPCClient\src\TimemicroCore.Bitcoin.RPCClient\TimemicroCore.Bitcoin.RPCClient.csproj", "{3C77B167-E4A2-44C9-B050-60647198774E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.Sdk", "TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj", "{1BEC459C-8FAC-4379-8250-BC3FDE0F699A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.Api", "TimemicroCore.CoinsWallet.API\TimemicroCore.CoinsWallet.Api.csproj", "{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{C4023271-1C8B-46C9-B22C-1DE98CA4685D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4023271-1C8B-46C9-B22C-1DE98CA4685D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4023271-1C8B-46C9-B22C-1DE98CA4685D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C77B167-E4A2-44C9-B050-60647198774E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C77B167-E4A2-44C9-B050-60647198774E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C77B167-E4A2-44C9-B050-60647198774E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C77B167-E4A2-44C9-B050-60647198774E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEC459C-8FAC-4379-8250-BC3FDE0F699A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEC459C-8FAC-4379-8250-BC3FDE0F699A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEC459C-8FAC-4379-8250-BC3FDE0F699A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEC459C-8FAC-4379-8250-BC3FDE0F699A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,11 +4,8 @@ using System.Text;
 
 namespace TimemicroCore.CoinsWallet.Bitcoin.Service
 {
-    public class SendNotifyService
+    public interface IReceiveNotifyService
     {
-        public void Notify()
-        {
-
-        }
+        void Notify();
     }
 }

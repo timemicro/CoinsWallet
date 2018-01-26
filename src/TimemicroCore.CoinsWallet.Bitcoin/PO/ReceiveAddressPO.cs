@@ -11,7 +11,5 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.PO
         public string PrivateKey { get; set; }
 
         public decimal TotalReceived { get; set; }
-
-        public DateTime CreateTime { get; set; }
     }
 }

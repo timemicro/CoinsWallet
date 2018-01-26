@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -4,29 +4,24 @@ using System.Text;
 
 namespace TimemicroCore.CoinsWallet.Bitcoin.Service
 {
-    public class WalletService
+    public interface IWalletService
     {
+        string GetNewAddress();
+
         /// <summary>
         /// 同步块
         /// </summary>
-        public void SyncBlock()
-        {
-        }
+        void SyncBlock();
 
         /// <summary>
         /// 同步交易
         /// </summary>
-        public void SyncTransaction()
-        {
-
-        }
+        /// <param name="blockCount"></param>
+        void SyncTransaction(int blockCount);
 
         /// <summary>
         /// 确认交易
         /// </summary>
-        public void ConfirmTransaction()
-        {
-
-        }
+        void ConfirmTransaction();
     }
 }

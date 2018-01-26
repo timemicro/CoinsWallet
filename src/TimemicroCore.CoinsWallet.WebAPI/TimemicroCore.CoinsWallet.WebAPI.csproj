@@ -13,12 +13,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.API\TimemicroCore.CoinsWallet.Api.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
   </ItemGroup>
 
 </Project>
