@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="Areas\Bitcoin\Controllers\" />
     <Folder Include="Areas\Bitcoin\Data\" />
@@ -26,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.API\TimemicroCore.CoinsWallet.Api.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Quartz\TimemicroCore.CoinsWallet.Quartz.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
   </ItemGroup>
 

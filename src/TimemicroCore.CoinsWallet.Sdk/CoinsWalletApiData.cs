@@ -9,6 +9,11 @@ namespace TimemicroCore.CoinsWallet.Sdk
 {
     public class CoinsWalletApiData : AbstractApiData
     {
+        public CoinsWalletApiData()
+        {
+            Timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+        }
+
         [JsonProperty("service")]
         public string Service { get { return Get<string>("service"); } set { Set("service", value); } }
 

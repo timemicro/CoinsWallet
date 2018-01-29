@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,7 @@ using TimemicroCore.CoinsWallet.Api.Impl;
 using TimemicroCore.CoinsWallet.Bitcoin.PO;
 using TimemicroCore.CoinsWallet.Bitcoin.Service;
 using TimemicroCore.CoinsWallet.Bitcoin.Service.Impl;
+using TimemicroCore.CoinsWallet.Quartz;
 
 namespace TimemicroCore.CoinsWallet.WebAPI
 {
@@ -49,7 +51,10 @@ namespace TimemicroCore.CoinsWallet.WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app
+            , IHostingEnvironment env
+            , ILoggerFactory loggerFactory
+            , IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -57,6 +62,11 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             }
 
             app.UseMvc();
+
+            var quartzStartup = new Quartz.Startup();
+
+            lifetime.ApplicationStarted.Register(quartzStartup.Start);
+            lifetime.ApplicationStopping.Register(quartzStartup.Stop);
         }
     }
 }

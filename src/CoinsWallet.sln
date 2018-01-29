@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.Bitcoin", "TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj", "{AA183161-8AB0-4856-9742-79745465CF3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Bitcoin", "TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj", "{AA183161-8AB0-4856-9742-79745465CF3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.WebAPI", "TimemicroCore.CoinsWallet.WebAPI\TimemicroCore.CoinsWallet.WebAPI.csproj", "{C4023271-1C8B-46C9-B22C-1DE98CA4685D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.WebAPI", "TimemicroCore.CoinsWallet.WebAPI\TimemicroCore.CoinsWallet.WebAPI.csproj", "{C4023271-1C8B-46C9-B22C-1DE98CA4685D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.Bitcoin.RPCClient", "..\..\Bitcoin.RPCClient\src\TimemicroCore.Bitcoin.RPCClient\TimemicroCore.Bitcoin.RPCClient.csproj", "{3C77B167-E4A2-44C9-B050-60647198774E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.Sdk", "TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj", "{1BEC459C-8FAC-4379-8250-BC3FDE0F699A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Sdk", "TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj", "{1BEC459C-8FAC-4379-8250-BC3FDE0F699A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.Api", "TimemicroCore.CoinsWallet.API\TimemicroCore.CoinsWallet.Api.csproj", "{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Api", "TimemicroCore.CoinsWallet.API\TimemicroCore.CoinsWallet.Api.csproj", "{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Quartz", "TimemicroCore.CoinsWallet.Quartz\TimemicroCore.CoinsWallet.Quartz.csproj", "{B0B721E0-2A98-408E-8B99-FCA6B76CAB46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEEB702B-8288-4FC0-A4DA-DBA6549001D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0B721E0-2A98-408E-8B99-FCA6B76CAB46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0B721E0-2A98-408E-8B99-FCA6B76CAB46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0B721E0-2A98-408E-8B99-FCA6B76CAB46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0B721E0-2A98-408E-8B99-FCA6B76CAB46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

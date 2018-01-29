@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -26,6 +27,11 @@ namespace TimemicroCore.CoinsWallet.Sdk
         public void Set(string key, object value)
         {
             values[key] = value;
+        }
+
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
