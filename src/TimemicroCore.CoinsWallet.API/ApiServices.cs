@@ -12,11 +12,13 @@ namespace TimemicroCore.CoinsWallet.Api
         public ApiServices(
               BTCConfirmTransactionApiService btcConfirmTransactionApiService
             , BTCNewAddressApiService btcNewAddressApiService
+            , BTCReceiveNotifyApiService btcReceiveNotifyApiService
             , BTCSyncBlockApiService btcSyncBlockApiService
             , BTCSyncTransactionApiService btcSyncTransactionApiService)
         {
             services[btcConfirmTransactionApiService.Name] = btcConfirmTransactionApiService;
             services[btcNewAddressApiService.Name] = btcNewAddressApiService;
+            services[btcReceiveNotifyApiService.Name] = btcReceiveNotifyApiService;
             services[btcSyncBlockApiService.Name] = btcSyncBlockApiService;
             services[btcSyncTransactionApiService.Name] = btcSyncTransactionApiService;
         }

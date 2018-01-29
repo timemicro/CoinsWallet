@@ -10,13 +10,14 @@ using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
 
 namespace TimemicroCore.CoinsWallet.Quartz.Jobs
 {
-    public class BTCConfirmTransactionQuartzJob : IJob
+    [DisallowConcurrentExecution]
+    public class BTCReceiveNotifyQuartzJob : IJob
     {
-        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BTCConfirmTransactionQuartzJob));
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BTCReceiveNotifyQuartzJob));
 
         public Task Execute(IJobExecutionContext context)
         {
-            var req = new BTCConfirmTransactionReq();
+            var req = new BTCReceiveNotifyReq();
 
             req.Signature = req.SignByMD5("123");
 

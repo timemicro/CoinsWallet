@@ -17,9 +17,8 @@ using Timemicro.Bitcoin.RPCClient;
 using TimemicroCore.CoinsWallet.Api;
 using TimemicroCore.CoinsWallet.Api.Impl;
 using TimemicroCore.CoinsWallet.Bitcoin.PO;
-using TimemicroCore.CoinsWallet.Bitcoin.Service;
-using TimemicroCore.CoinsWallet.Bitcoin.Service.Impl;
 using TimemicroCore.CoinsWallet.Quartz;
+using TimemicroCore.CoinsWallet.WebAPI.Config;
 
 namespace TimemicroCore.CoinsWallet.WebAPI
 {
@@ -46,10 +45,13 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             services.AddSingleton(typeof(JsonRPCClient), new JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword));
 
-            services.AddScoped(typeof(IWalletService), typeof(WalletServiceImpl));
+            services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
+            services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
+
             services.AddScoped(typeof(ApiServices), typeof(ApiServices));
             services.AddScoped(typeof(BTCConfirmTransactionApiService), typeof(BTCConfirmTransactionApiService));
             services.AddScoped(typeof(BTCNewAddressApiService), typeof(BTCNewAddressApiService));
+            services.AddScoped(typeof(BTCReceiveNotifyApiService), typeof(BTCReceiveNotifyApiService));
             services.AddScoped(typeof(BTCSyncBlockApiService), typeof(BTCSyncBlockApiService));
             services.AddScoped(typeof(BTCSyncTransactionApiService), typeof(BTCSyncTransactionApiService));
 
@@ -69,7 +71,7 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             app.UseMvc();
 
-            var quartzStartup = new Quartz.Startup();
+            var quartzStartup = new Quartz.Startup(Configuration);
 
             lifetime.ApplicationStarted.Register(quartzStartup.Start);
             lifetime.ApplicationStopping.Register(quartzStartup.Stop);

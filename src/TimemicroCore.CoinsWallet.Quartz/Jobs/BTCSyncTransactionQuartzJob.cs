@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TimemicroCore.CoinsWallet.Network;
 using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
 
 namespace TimemicroCore.CoinsWallet.Quartz.Jobs

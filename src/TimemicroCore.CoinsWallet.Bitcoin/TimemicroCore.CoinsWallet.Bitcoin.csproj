@@ -9,12 +9,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Bitcoin.RPCClient\src\TimemicroCore.Bitcoin.RPCClient\TimemicroCore.Bitcoin.RPCClient.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Network\TimemicroCore.CoinsWallet.Network.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
   </ItemGroup>
 
 </Project>

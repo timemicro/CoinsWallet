@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Network\TimemicroCore.CoinsWallet.Network.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
   </ItemGroup>
 
