@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="logs\**" />
+    <Content Remove="logs\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Areas\Bitcoin\Controllers\" />
     <Folder Include="Areas\Bitcoin\Data\" />
     <Folder Include="Areas\Bitcoin\Models\" />
