@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using log4net;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -11,6 +12,8 @@ namespace TimemicroCore.CoinsWallet.Quartz.Jobs
     [DisallowConcurrentExecution]
     public class BTCSyncTransactionQuartzJob : IJob
     {
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BTCSyncTransactionQuartzJob));
+
         public Task Execute(IJobExecutionContext context)
         {
             var req = new BTCSyncTransactionReq();
@@ -19,7 +22,9 @@ namespace TimemicroCore.CoinsWallet.Quartz.Jobs
 
             var http = WebRequest.CreateHttp($"http://localhost:58045/api/services/do?service={req.Service}");
 
-            var a = http.PostJson(req.ToJson());
+            logger.Info($"{req.Service} requestText {req.ToJson()}");
+            var responseText = http.PostJson(req.ToJson());
+            logger.Info($"{req.Service} responseText {responseText}");
 
             return null;
         }

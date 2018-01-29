@@ -3,21 +3,19 @@ using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
 
 namespace TimemicroCore.CoinsWallet.Quartz.Jobs
 {
-    [DisallowConcurrentExecution]
-    public class BTCSyncBlockQuartzJob : IJob
+    public class BTCConfirmTransactionQuartzJob : IJob
     {
-        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BTCSyncBlockQuartzJob));
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BTCConfirmTransactionQuartzJob));
 
         public Task Execute(IJobExecutionContext context)
         {
-            var req = new BTCSyncBlockReq();
+            var req = new BTCConfirmTransactionReq();
 
             req.Signature = req.SignByMD5("123");
 

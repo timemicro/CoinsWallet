@@ -25,6 +25,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
             await scheduler.Start();
 
+            AddBTCConfirmTransactionQuartzJob();
             AddBTCSyncBlockQuartzJob();
             AddBTCSyncTransactionQuartzJob();
         }
@@ -37,13 +38,30 @@ namespace TimemicroCore.CoinsWallet.Quartz
             }
         }
 
+        async void AddBTCConfirmTransactionQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Jobs.BTCConfirmTransactionQuartzJob>()
+                .WithIdentity("btcConfirmTransactionQuartzJob", "group1")
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("btcConfirmTransactionQuartzJob", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(30)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
         async void AddBTCSyncBlockQuartzJob()
         {
-            IJobDetail btcSyncBlockQuartzJob = JobBuilder.Create<Jobs.BTCSyncBlockQuartzJob>()
+            IJobDetail job = JobBuilder.Create<Jobs.BTCSyncBlockQuartzJob>()
                 .WithIdentity("btcSyncBlockQuartzJob", "group1")
                 .Build();
 
-            ITrigger btcSyncBlockQuartzJobTrigger = TriggerBuilder.Create()
+            ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("btcSyncBlockQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
@@ -51,16 +69,16 @@ namespace TimemicroCore.CoinsWallet.Quartz
                     .RepeatForever())
                 .Build();
 
-            await scheduler.ScheduleJob(btcSyncBlockQuartzJob, btcSyncBlockQuartzJobTrigger);
+            await scheduler.ScheduleJob(job, trigger);
         }
 
         async void AddBTCSyncTransactionQuartzJob()
         {
-            IJobDetail btcSyncTransactionQuartzJob = JobBuilder.Create<Jobs.BTCSyncTransactionQuartzJob>()
+            IJobDetail job = JobBuilder.Create<Jobs.BTCSyncTransactionQuartzJob>()
                 .WithIdentity("btcSyncTransactionQuartzJob", "group1")
                 .Build();
 
-            ITrigger btcSyncTransactionQuartzJobTrigger = TriggerBuilder.Create()
+            ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("btcSyncTransactionQuartzJob", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
@@ -68,8 +86,10 @@ namespace TimemicroCore.CoinsWallet.Quartz
                     .RepeatForever())
                 .Build();
 
-            await scheduler.ScheduleJob(btcSyncTransactionQuartzJob, btcSyncTransactionQuartzJobTrigger);
+            await scheduler.ScheduleJob(job, trigger);
 
         }
+
+        
     }
 }

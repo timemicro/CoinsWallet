@@ -8,4 +8,5 @@
 *.csproj.user
 
 /src/*/bin
+/src/*/logs
 /src/*/obj

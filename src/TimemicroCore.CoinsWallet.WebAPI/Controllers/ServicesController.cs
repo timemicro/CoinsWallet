@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -16,6 +17,8 @@ namespace TimemicroCore.CoinsWallet.WebAPI.Controllers
     [Route("api/services")]
     public class ServicesController : Controller
     {
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(ServicesController));
+
         private ApiServices ApiServices { get; set; }
 
         public ServicesController(ApiServices apiServices)
@@ -26,6 +29,8 @@ namespace TimemicroCore.CoinsWallet.WebAPI.Controllers
         [Route("do")]
         public object Do()
         {
+            logger.Info($"api service {Request.Query["service"]} start");
+
             var json = string.Empty;
             var service = Request.Query["service"];
             using (var reader = new StreamReader(Request.Body))
@@ -35,7 +40,9 @@ namespace TimemicroCore.CoinsWallet.WebAPI.Controllers
 
             var apiService = ApiServices[service];
             var req = JsonConvert.DeserializeObject(json, apiService.ReqType);
-            return apiService.Execute(req);
+            var result = apiService.Execute(req);
+            logger.Info($"api service {Request.Query["service"]} end");
+            return result;
         }
     }
 }
