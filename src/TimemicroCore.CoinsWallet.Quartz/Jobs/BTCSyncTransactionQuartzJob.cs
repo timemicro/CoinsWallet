@@ -15,13 +15,17 @@ namespace TimemicroCore.CoinsWallet.Quartz.Jobs
     {
         static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BTCSyncTransactionQuartzJob));
 
+        public string ApiKey { get; set; }
+
+        public string ApiUrl { get; set; }
+
         public Task Execute(IJobExecutionContext context)
         {
             var req = new BTCSyncTransactionReq();
 
-            req.Signature = req.SignByMD5("123");
+            req.Signature = req.SignByMD5(ApiKey);
 
-            var http = WebRequest.CreateHttp($"http://localhost:58045/api/services/do?service={req.Service}");
+            var http = WebRequest.CreateHttp($"{ApiUrl}{req.Service}");
 
             logger.Info($"{req.Service} requestText {req.ToJson()}");
             var responseText = http.PostJson(req.ToJson());

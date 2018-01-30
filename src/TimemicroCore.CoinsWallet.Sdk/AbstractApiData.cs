@@ -14,6 +14,10 @@ namespace TimemicroCore.CoinsWallet.Sdk
             var defaultValue = default(T);
             if (values.TryGetValue(key, out object result))
             {
+                if (result != null && typeof(T) == typeof(string) && result.GetType() != typeof(string))
+                {
+                    result = result.ToString();
+                }
                 return (T)result;
             }
             else

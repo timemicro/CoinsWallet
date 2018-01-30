@@ -10,6 +10,8 @@ namespace TimemicroCore.CoinsWallet.Api
         where Req : CoinsWalletApiData
         where Resp : CoinsWalletApiRespData, new()
     {
+        protected ApiServiceAppSettings AppSettings { get; set; }
+
         public abstract string Name { get; }
 
         public Type ReqType => typeof(Req);
@@ -28,7 +30,7 @@ namespace TimemicroCore.CoinsWallet.Api
                     resp.RespMessage = "时间戳错误";
                     return resp;
                 }
-                if (!req.CheckSignByMD5("123"))
+                if (!req.CheckSignByMD5(AppSettings.ApiKey))
                 {
                     resp.RespCode = "10002";
                     resp.RespMessage = "签名错误";

@@ -12,8 +12,9 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
 
         public override string Name => "btc_syncblock";
 
-        public BTCSyncBlockApiService(IWalletService walletService)
+        public BTCSyncBlockApiService(ApiServiceAppSettings appSettings, IWalletService walletService)
         {
+            AppSettings = appSettings;
             WalletService = walletService;
         }
 
@@ -21,7 +22,7 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
         {
             WalletService.SyncBlock();
             var resp = new BTCSyncBlockResp();
-            resp.Signature = resp.SignByMD5("123");
+            resp.Signature = resp.SignByMD5(AppSettings.ApiKey);
             return resp;
         }
     }

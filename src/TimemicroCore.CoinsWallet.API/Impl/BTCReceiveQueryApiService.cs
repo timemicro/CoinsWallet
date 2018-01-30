@@ -12,8 +12,9 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
 
         public override string Name => "btc_receivequery";
 
-        public BTCReceiveQueryApiService(CoinsWalletDbContext context)
+        public BTCReceiveQueryApiService(ApiServiceAppSettings appSettings, CoinsWalletDbContext context)
         {
+            AppSettings = appSettings;
             this.context = context;
         }
 
@@ -41,7 +42,7 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
                 }
             }
 
-            resp.Signature = resp.SignByMD5("123");
+            resp.Signature = resp.SignByMD5(AppSettings.ApiKey);
             return resp;
         }
     }

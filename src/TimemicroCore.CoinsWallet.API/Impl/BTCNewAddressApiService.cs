@@ -12,8 +12,9 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
 
         public override string Name => "btc_newaddress";
 
-        public BTCNewAddressApiService(IWalletService walletService)
+        public BTCNewAddressApiService(ApiServiceAppSettings appSettings, IWalletService walletService)
         {
+            AppSettings = appSettings;
             WalletService = walletService;
         }
 
@@ -21,7 +22,7 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
         {
             var address = WalletService.GetNewAddress();
             var resp = new BTCNewAddressResp() { Data = address };
-            resp.Signature = resp.SignByMD5("123");
+            resp.Signature = resp.SignByMD5(AppSettings.ApiKey);
             return resp;
         }
     }

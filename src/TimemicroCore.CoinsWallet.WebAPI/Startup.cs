@@ -37,12 +37,14 @@ namespace TimemicroCore.CoinsWallet.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var apiKey = Configuration["coinswallet:apikey"];
             var btcRpcUrl = Configuration["coinswallet:bitcoin:rpcclient:url"];
             var btcRpcUser = Configuration["coinswallet:bitcoin:rpcclient:user"];
             var btcRpcPassword = Configuration["coinswallet:bitcoin:rpcclient:password"];
 
             services.AddDbContext<CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
 
+            services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
             services.AddSingleton(typeof(JsonRPCClient), new JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword));
 
             services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
@@ -53,6 +55,7 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddScoped(typeof(BTCNewAddressApiService), typeof(BTCNewAddressApiService));
             services.AddScoped(typeof(BTCReceiveNotifyApiService), typeof(BTCReceiveNotifyApiService));
             services.AddScoped(typeof(BTCReceiveQueryApiService), typeof(BTCReceiveQueryApiService));
+            services.AddScoped(typeof(BTCSendRequestApiService), typeof(BTCSendRequestApiService));
             services.AddScoped(typeof(BTCSyncBlockApiService), typeof(BTCSyncBlockApiService));
             services.AddScoped(typeof(BTCSyncTransactionApiService), typeof(BTCSyncTransactionApiService));
 
