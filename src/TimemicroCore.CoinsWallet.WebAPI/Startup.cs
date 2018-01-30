@@ -52,6 +52,7 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddScoped(typeof(BTCConfirmTransactionApiService), typeof(BTCConfirmTransactionApiService));
             services.AddScoped(typeof(BTCNewAddressApiService), typeof(BTCNewAddressApiService));
             services.AddScoped(typeof(BTCReceiveNotifyApiService), typeof(BTCReceiveNotifyApiService));
+            services.AddScoped(typeof(BTCReceiveQueryApiService), typeof(BTCReceiveQueryApiService));
             services.AddScoped(typeof(BTCSyncBlockApiService), typeof(BTCSyncBlockApiService));
             services.AddScoped(typeof(BTCSyncTransactionApiService), typeof(BTCSyncTransactionApiService));
 

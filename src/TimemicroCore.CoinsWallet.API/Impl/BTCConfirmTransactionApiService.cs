@@ -21,7 +21,9 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
         {
             WalletService.ConfirmTransaction();
 
-            return new BTCConfirmTransactionResp();
+            var resp = new BTCConfirmTransactionResp();
+            resp.Signature = resp.SignByMD5("123");
+            return resp;
         }
     }
 }

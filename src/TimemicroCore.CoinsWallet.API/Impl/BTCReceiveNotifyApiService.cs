@@ -23,7 +23,9 @@ namespace TimemicroCore.CoinsWallet.Api.Impl
             {
                 ReceiveNotifyService.Notify();
 
-                return new BTCReceiveNotifyResp();
+                var resp = new BTCReceiveNotifyResp();
+                resp.Signature = resp.SignByMD5("123");
+                return resp;
             }
             catch (Exception)
             {

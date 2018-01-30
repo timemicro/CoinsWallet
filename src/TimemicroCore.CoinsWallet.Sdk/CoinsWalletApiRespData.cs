@@ -5,11 +5,8 @@ using System.Text;
 
 namespace TimemicroCore.CoinsWallet.Sdk
 {
-    public class CoinsWalletApiRespData : AbstractApiData
+    public class CoinsWalletApiRespData : CoinsWalletApiData
     {
-        [JsonProperty("service")]
-        public string Service { get { return Get<string>("service"); } set { Set("service", value); } }
-
         [JsonProperty("respCode")]
         public string RespCode { get { return Get<string>("respCode"); } set { Set("respCode", value); } }
 
@@ -19,6 +16,15 @@ namespace TimemicroCore.CoinsWallet.Sdk
         public CoinsWalletApiRespData()
         {
             RespCode = "0";
+            Timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+        }
+
+        public override IList<string> GetSignProperties()
+        {
+            var props = base.GetSignProperties();
+            props.Add("respCode");
+            props.Add("respMessage");
+            return props;
         }
     }
 
