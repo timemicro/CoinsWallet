@@ -12,13 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Timemicro.Bitcoin.RPCClient;
+
 using TimemicroCore.CoinsWallet.Api;
 using TimemicroCore.CoinsWallet.Api.Impl;
-using TimemicroCore.CoinsWallet.Bitcoin.PO;
-using TimemicroCore.CoinsWallet.Quartz;
-using TimemicroCore.CoinsWallet.WebAPI.Config;
 
 namespace TimemicroCore.CoinsWallet.WebAPI
 {
@@ -38,19 +34,24 @@ namespace TimemicroCore.CoinsWallet.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             var apiKey = Configuration["coinswallet:apikey"];
+            services.AddDbContext<Bitcoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+            services.AddDbContext<BitcoinCash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+
+            services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
+
+            services.AddScoped(typeof(ApiServices), typeof(ApiServices));
+
+            #region Bitcoin
+
             var btcRpcUrl = Configuration["coinswallet:bitcoin:rpcclient:url"];
             var btcRpcUser = Configuration["coinswallet:bitcoin:rpcclient:user"];
             var btcRpcPassword = Configuration["coinswallet:bitcoin:rpcclient:password"];
 
-            services.AddDbContext<CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
-
-            services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
-            services.AddSingleton(typeof(JsonRPCClient), new JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword));
+            services.AddSingleton(typeof(Timemicro.Bitcoin.RPCClient.JsonRPCClient), new Timemicro.Bitcoin.RPCClient.JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword));
 
             services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
             services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
 
-            services.AddScoped(typeof(ApiServices), typeof(ApiServices));
             services.AddScoped(typeof(BTCConfirmTransactionApiService), typeof(BTCConfirmTransactionApiService));
             services.AddScoped(typeof(BTCNewAddressApiService), typeof(BTCNewAddressApiService));
             services.AddScoped(typeof(BTCReceiveNotifyApiService), typeof(BTCReceiveNotifyApiService));
@@ -58,6 +59,29 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddScoped(typeof(BTCSendRequestApiService), typeof(BTCSendRequestApiService));
             services.AddScoped(typeof(BTCSyncBlockApiService), typeof(BTCSyncBlockApiService));
             services.AddScoped(typeof(BTCSyncTransactionApiService), typeof(BTCSyncTransactionApiService));
+
+            #endregion
+
+            #region BitcoinCash
+
+            var bchRpcUrl = Configuration["coinswallet:bitcoincash:rpcclient:url"];
+            var bchRpcUser = Configuration["coinswallet:bitcoincash:rpcclient:user"];
+            var bchRpcPassword = Configuration["coinswallet:bitcoincash:rpcclient:password"];
+
+            services.AddSingleton(typeof(Timemicro.BitcoinCash.RPCClient.JsonRPCClient), new Timemicro.BitcoinCash.RPCClient.JsonRPCClient(bchRpcUrl, bchRpcUser, bchRpcPassword));
+
+            services.AddScoped(typeof(BitcoinCash.Service.IWalletService), typeof(BitcoinCash.Service.Impl.WalletServiceImpl));
+            services.AddScoped(typeof(BitcoinCash.Service.IReceiveNotifyService), typeof(BitcoinCash.Service.Impl.ReceiveNotifyServiceImpl));
+
+            services.AddScoped(typeof(BCHConfirmTransactionApiService), typeof(BCHConfirmTransactionApiService));
+            services.AddScoped(typeof(BCHNewAddressApiService), typeof(BCHNewAddressApiService));
+            services.AddScoped(typeof(BCHReceiveNotifyApiService), typeof(BCHReceiveNotifyApiService));
+            services.AddScoped(typeof(BCHReceiveQueryApiService), typeof(BCHReceiveQueryApiService));
+            services.AddScoped(typeof(BCHSendRequestApiService), typeof(BCHSendRequestApiService));
+            services.AddScoped(typeof(BCHSyncBlockApiService), typeof(BCHSyncBlockApiService));
+            services.AddScoped(typeof(BCHSyncTransactionApiService), typeof(BCHSyncTransactionApiService));
+
+            #endregion
 
             services.AddMvc();
         }

@@ -15,7 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Quartz", "TimemicroCore.CoinsWallet.Quartz\TimemicroCore.CoinsWallet.Quartz.csproj", "{B0B721E0-2A98-408E-8B99-FCA6B76CAB46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.Network", "TimemicroCore.CoinsWallet.Network\TimemicroCore.CoinsWallet.Network.csproj", "{9C939B82-152B-4A04-A0D0-B290BC6A9C82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Network", "TimemicroCore.CoinsWallet.Network\TimemicroCore.CoinsWallet.Network.csproj", "{9C939B82-152B-4A04-A0D0-B290BC6A9C82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RPCClients", "RPCClients", "{FD9D4AB2-F04B-4C63-B75E-4D68972446D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.BitcoinCash.RPCClient", "..\..\BitcoinCash.RPCClient\src\TimemicroCore.BitcoinCash.RPCClient\TimemicroCore.BitcoinCash.RPCClient.csproj", "{5121AB6E-6914-4A82-8516-022C30EC6ED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.BitcoinCash", "TimemicroCore.CoinsWallet.BitcoinCash\TimemicroCore.CoinsWallet.BitcoinCash.csproj", "{64C64C83-ECC1-4396-9072-A4C2F97A20F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,9 +57,21 @@ Global
 		{9C939B82-152B-4A04-A0D0-B290BC6A9C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C939B82-152B-4A04-A0D0-B290BC6A9C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C939B82-152B-4A04-A0D0-B290BC6A9C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5121AB6E-6914-4A82-8516-022C30EC6ED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5121AB6E-6914-4A82-8516-022C30EC6ED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5121AB6E-6914-4A82-8516-022C30EC6ED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5121AB6E-6914-4A82-8516-022C30EC6ED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64C64C83-ECC1-4396-9072-A4C2F97A20F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C64C83-ECC1-4396-9072-A4C2F97A20F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C64C83-ECC1-4396-9072-A4C2F97A20F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C64C83-ECC1-4396-9072-A4C2F97A20F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3C77B167-E4A2-44C9-B050-60647198774E} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
+		{5121AB6E-6914-4A82-8516-022C30EC6ED1} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0136D57D-96CF-47BF-A1C0-0D12FE695C5C}

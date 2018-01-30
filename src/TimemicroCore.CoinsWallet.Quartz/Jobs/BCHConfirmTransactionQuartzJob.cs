@@ -6,14 +6,13 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TimemicroCore.CoinsWallet.Network;
-using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
+using TimemicroCore.CoinsWallet.Sdk.BitcoinCash;
 
 namespace TimemicroCore.CoinsWallet.Quartz.Jobs
 {
-    [DisallowConcurrentExecution]
-    public class BTCReceiveNotifyQuartzJob : IJob
+    public class BCHConfirmTransactionQuartzJob : IJob
     {
-        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BTCReceiveNotifyQuartzJob));
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BCHConfirmTransactionQuartzJob));
 
         public string ApiKey { get; set; }
 
@@ -23,7 +22,7 @@ namespace TimemicroCore.CoinsWallet.Quartz.Jobs
         {
             try
             {
-                var req = new BTCReceiveNotifyReq();
+                var req = new BCHConfirmTransactionReq();
 
                 req.Signature = req.SignByMD5(ApiKey);
 

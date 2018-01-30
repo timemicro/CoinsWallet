@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Impl\BCHReceiveNotifyApiService.cs~RF232f1eff.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.BitcoinCash\TimemicroCore.CoinsWallet.BitcoinCash.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
   </ItemGroup>

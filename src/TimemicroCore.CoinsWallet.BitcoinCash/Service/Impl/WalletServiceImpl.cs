@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Timemicro.Bitcoin.RPCClient;
-using Timemicro.Bitcoin.RPCClient.Methods;
-using TimemicroCore.CoinsWallet.Bitcoin.PO;
+using Timemicro.BitcoinCash.RPCClient;
+using Timemicro.BitcoinCash.RPCClient.Methods;
+using TimemicroCore.CoinsWallet.BitcoinCash.PO;
 
-namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
+namespace TimemicroCore.CoinsWallet.BitcoinCash.Service.Impl
 {
     public class WalletServiceImpl : IWalletService
     {
