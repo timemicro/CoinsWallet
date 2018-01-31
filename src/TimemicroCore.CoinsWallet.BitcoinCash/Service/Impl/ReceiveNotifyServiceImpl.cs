@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,13 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.Service.Impl
     {
         static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(ReceiveNotifyServiceImpl));
 
+        private IConfiguration configuration;
+
         private CoinsWalletDbContext context;
 
-        public ReceiveNotifyServiceImpl(CoinsWalletDbContext context)
+        public ReceiveNotifyServiceImpl(IConfiguration configuration, CoinsWalletDbContext context)
         {
+            this.configuration = configuration;
             this.context = context;
         }
 
@@ -82,7 +86,7 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.Service.Impl
             }
 
             var responseText = string.Empty;
-            var http = WebRequest.CreateHttp("http://localhost");
+            var http = WebRequest.CreateHttp(configuration["CoinsWallet:BitcoinCash:ReceiveNotifyUrl"]);
             try
             {
                 responseText = http.PostJson(result.ToJson());
