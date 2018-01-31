@@ -1,5 +1,5 @@
 ﻿using System;
-using TimemicroCore.CoinsWallet.Bitcoin.Service;
+using TimemicroCore.CoinsWallet.Zcash.Service;
 using TimemicroCore.CoinsWallet.Sdk.Zcash;
 
 namespace TimemicroCore.CoinsWallet.Api.Impl

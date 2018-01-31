@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using TimemicroCore.CoinsWallet.Zcash.PO;
 using TimemicroCore.CoinsWallet.Network;
-using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
+using TimemicroCore.CoinsWallet.Sdk.Zcash;
 
 namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
 {
@@ -66,14 +66,14 @@ namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
                 return;
             }
 
-            var result = new BTCReceiveNotifyResult()
+            var result = new ZECReceiveNotifyResult()
             {
-                Data = new List<BTCReceiveNotifyResultDataItem>()
+                Data = new List<ZECReceiveNotifyResultDataItem>()
             };
 
             foreach (var item in logs)
             {
-                result.Data.Add(new BTCReceiveNotifyResultDataItem()
+                result.Data.Add(new ZECReceiveNotifyResultDataItem()
                 {
                     Address = item.Address,
                     Amount = item.Amount,

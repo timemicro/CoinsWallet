@@ -96,10 +96,10 @@ namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
             });
 
             var highestBlockPO = context.Blocks.OrderByDescending(x => x.Height).Take(1).FirstOrDefault();
-
-            if (bestBlockResp.Result.Height - highestBlockPO.Height >= 1)
+            var highestHeight = highestBlockPO == null ? bestBlockResp.Result.Height : highestBlockPO.Height;
+            if (bestBlockResp.Result.Height - highestHeight > 10)
             {
-                for (int i = highestBlockPO.Height + 1; i < bestBlockResp.Result.Height; i++)
+                for (int i = highestHeight + 1; i <= highestHeight + 10; i++)
                 {
                     var blockHashResp = rpcClient.Call<GetBlockHashResponse>(JsonRPCMethods.GetBlockHash, new GetBlockHashParams()
                     {
@@ -107,7 +107,22 @@ namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
                     });
                     blocks.Add(new BlockPO() { Hash = blockHashResp.Result, Height = i, State = 0 });
                 }
-                blocks.Add(new BlockPO() { Hash = bestBlockHashResp.Result, Height = bestBlockResp.Result.Height, State = 0 });
+            }
+            else if (bestBlockResp.Result.Height - highestHeight >= 0)
+            {
+                for (int i = highestHeight + 1; i < bestBlockResp.Result.Height; i++)
+                {
+                    var blockHashResp = rpcClient.Call<GetBlockHashResponse>(JsonRPCMethods.GetBlockHash, new GetBlockHashParams()
+                    {
+                        BlockHeight = i
+                    });
+                    blocks.Add(new BlockPO() { Hash = blockHashResp.Result, Height = i, State = 0 });
+                }
+
+                if (highestBlockPO == null || (highestBlockPO != null && highestBlockPO.Height < bestBlockResp.Result.Height))
+                {
+                    blocks.Add(new BlockPO() { Hash = bestBlockHashResp.Result, Height = bestBlockResp.Result.Height, State = 0 });
+                }
             }
 
             using (var tran = context.Database.BeginTransaction())

@@ -13,9 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
 using TimemicroCore.CoinsWallet.Api;
-using TimemicroCore.CoinsWallet.Api.Impl;
 
 namespace TimemicroCore.CoinsWallet.WebAPI
 {
@@ -37,10 +35,9 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             var apiKey = Configuration["coinswallet:apikey"];
             services.AddDbContext<Bitcoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<BitcoinCash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+            services.AddDbContext<Zcash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
 
             services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
-
-            services.AddScoped(typeof(ApiServices), typeof(ApiServices));
 
             #region Bitcoin
 
@@ -50,8 +47,17 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             services.AddSingleton(typeof(Timemicro.Bitcoin.RPCClient.JsonRPCClient), new Timemicro.Bitcoin.RPCClient.JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword));
 
-            services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
-            services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
+            //services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
+            //services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
+
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Bitcoin"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
 
             #endregion
 
@@ -63,8 +69,36 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             services.AddSingleton(typeof(Timemicro.BitcoinCash.RPCClient.JsonRPCClient), new Timemicro.BitcoinCash.RPCClient.JsonRPCClient(bchRpcUrl, bchRpcUser, bchRpcPassword));
 
-            services.AddScoped(typeof(BitcoinCash.Service.IWalletService), typeof(BitcoinCash.Service.Impl.WalletServiceImpl));
-            services.AddScoped(typeof(BitcoinCash.Service.IReceiveNotifyService), typeof(BitcoinCash.Service.Impl.ReceiveNotifyServiceImpl));
+            //services.AddScoped(typeof(BitcoinCash.Service.IWalletService), typeof(BitcoinCash.Service.Impl.WalletServiceImpl));
+            //services.AddScoped(typeof(BitcoinCash.Service.IReceiveNotifyService), typeof(BitcoinCash.Service.Impl.ReceiveNotifyServiceImpl));
+
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.BitcoinCash"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
+
+            #endregion
+
+            #region Zcash
+
+            var zecRpcUrl = Configuration["coinswallet:zcash:rpcclient:url"];
+            var zecRpcUser = Configuration["coinswallet:zcash:rpcclient:user"];
+            var zecRpcPassword = Configuration["coinswallet:zcash:rpcclient:password"];
+
+            services.AddSingleton(typeof(Timemicro.Zcash.RPCClient.JsonRPCClient), new Timemicro.Zcash.RPCClient.JsonRPCClient(zecRpcUrl, zecRpcUser, zecRpcPassword));
+
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Zcash"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
 
             #endregion
 
@@ -78,7 +112,7 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             }
 
             services.AddScoped(typeof(ApiServices), typeof(ApiServices));
-            ServiceLocator.Instance = services.BuildServiceProvider();
+            ServiceLocator.Instance = services;
 
             services.AddMvc();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,6 @@ namespace TimemicroCore.CoinsWallet.Api
 {
     public static class ServiceLocator
     {
-        public static IServiceProvider Instance { get; set; }
+        public static IServiceCollection Instance { get; set; }
     }
 }

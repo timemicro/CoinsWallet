@@ -41,6 +41,7 @@
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Quartz\TimemicroCore.CoinsWallet.Quartz.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Zcash\TimemicroCore.CoinsWallet.Zcash.csproj" />
   </ItemGroup>
 
 </Project>

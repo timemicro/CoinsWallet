@@ -45,6 +45,14 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 AddBTCSyncBlockQuartzJob();
                 AddBTCSyncTransactionQuartzJob();
             }
+
+            if (Configuration.GetValue<bool>("CoinsWallet:Zcash:Enabled"))
+            {
+                AddZECConfirmTransactionQuartzJob();
+                AddZECReceiveNotifyQuartzJob();
+                AddZECSyncBlockQuartzJob();
+                AddZECSyncTransactionQuartzJob();
+            }
         }
 
         public async void Stop()
@@ -204,6 +212,86 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("btcSyncTransactionQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        #endregion
+
+        #region ZEC
+
+        async void AddZECConfirmTransactionQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Jobs.ZECConfirmTransactionQuartzJob>()
+                .WithIdentity("zecConfirmTransactionQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("zecConfirmTransactionQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddZECReceiveNotifyQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Jobs.ZECReceiveNotifyQuartzJob>()
+                .WithIdentity("zecReceiveNotifyQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("zecReceiveNotifyQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddZECSyncBlockQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Jobs.ZECSyncBlockQuartzJob>()
+                .WithIdentity("zecSyncBlockQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("zecSyncBlockQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddZECSyncTransactionQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Jobs.ZECSyncTransactionQuartzJob>()
+                .WithIdentity("zecSyncTransactionQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("zecSyncTransactionQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
                     .WithIntervalInSeconds(5)

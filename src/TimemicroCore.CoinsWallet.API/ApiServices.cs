@@ -13,7 +13,7 @@ namespace TimemicroCore.CoinsWallet.Api
 
         public ApiServices()
         {
-            var valueServices = ServiceLocator.Instance.GetServices<IApiService>();
+            var valueServices = ServiceLocator.Instance.BuildServiceProvider().GetServices<IApiService>();
 
             foreach (var item in valueServices)
             {
