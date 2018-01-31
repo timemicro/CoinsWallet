@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
@@ -12,9 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
 using TimemicroCore.CoinsWallet.Api;
-using TimemicroCore.CoinsWallet.Api.Impl;
 
 namespace TimemicroCore.CoinsWallet.WebAPI
 {
@@ -36,10 +35,9 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             var apiKey = Configuration["coinswallet:apikey"];
             services.AddDbContext<Bitcoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<BitcoinCash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+            services.AddDbContext<Zcash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
 
             services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
-
-            services.AddScoped(typeof(ApiServices), typeof(ApiServices));
 
             #region Bitcoin
 
@@ -50,17 +48,17 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             services.AddSingleton(typeof(Timemicro.Bitcoin.RPCClient.JsonRPCClient), new Timemicro.Bitcoin.RPCClient.JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword, btcWalletPassphrase));
 
-            services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
-            services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
+            //services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
+            //services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
 
-            services.AddScoped(typeof(BTCConfirmSendApiService), typeof(BTCConfirmSendApiService));
-            services.AddScoped(typeof(BTCConfirmTransactionApiService), typeof(BTCConfirmTransactionApiService));
-            services.AddScoped(typeof(BTCNewAddressApiService), typeof(BTCNewAddressApiService));
-            services.AddScoped(typeof(BTCReceiveNotifyApiService), typeof(BTCReceiveNotifyApiService));
-            services.AddScoped(typeof(BTCReceiveQueryApiService), typeof(BTCReceiveQueryApiService));
-            services.AddScoped(typeof(BTCSendRequestApiService), typeof(BTCSendRequestApiService));
-            services.AddScoped(typeof(BTCSyncBlockApiService), typeof(BTCSyncBlockApiService));
-            services.AddScoped(typeof(BTCSyncTransactionApiService), typeof(BTCSyncTransactionApiService));
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Bitcoin"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
 
             #endregion
 
@@ -73,19 +71,50 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             services.AddSingleton(typeof(Timemicro.BitcoinCash.RPCClient.JsonRPCClient), new Timemicro.BitcoinCash.RPCClient.JsonRPCClient(bchRpcUrl, bchRpcUser, bchRpcPassword, bchWalletPassphrase));
 
-            services.AddScoped(typeof(BitcoinCash.Service.IWalletService), typeof(BitcoinCash.Service.Impl.WalletServiceImpl));
-            services.AddScoped(typeof(BitcoinCash.Service.IReceiveNotifyService), typeof(BitcoinCash.Service.Impl.ReceiveNotifyServiceImpl));
+            //services.AddScoped(typeof(BitcoinCash.Service.IWalletService), typeof(BitcoinCash.Service.Impl.WalletServiceImpl));
+            //services.AddScoped(typeof(BitcoinCash.Service.IReceiveNotifyService), typeof(BitcoinCash.Service.Impl.ReceiveNotifyServiceImpl));
 
-            services.AddScoped(typeof(BCHConfirmSendApiService), typeof(BCHConfirmSendApiService));
-            services.AddScoped(typeof(BCHConfirmTransactionApiService), typeof(BCHConfirmTransactionApiService));
-            services.AddScoped(typeof(BCHNewAddressApiService), typeof(BCHNewAddressApiService));
-            services.AddScoped(typeof(BCHReceiveNotifyApiService), typeof(BCHReceiveNotifyApiService));
-            services.AddScoped(typeof(BCHReceiveQueryApiService), typeof(BCHReceiveQueryApiService));
-            services.AddScoped(typeof(BCHSendRequestApiService), typeof(BCHSendRequestApiService));
-            services.AddScoped(typeof(BCHSyncBlockApiService), typeof(BCHSyncBlockApiService));
-            services.AddScoped(typeof(BCHSyncTransactionApiService), typeof(BCHSyncTransactionApiService));
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.BitcoinCash"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
 
             #endregion
+
+            #region Zcash
+
+            var zecRpcUrl = Configuration["coinswallet:zcash:rpcclient:url"];
+            var zecRpcUser = Configuration["coinswallet:zcash:rpcclient:user"];
+            var zecRpcPassword = Configuration["coinswallet:zcash:rpcclient:password"];
+
+            services.AddSingleton(typeof(Timemicro.Zcash.RPCClient.JsonRPCClient), new Timemicro.Zcash.RPCClient.JsonRPCClient(zecRpcUrl, zecRpcUser, zecRpcPassword));
+
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Zcash"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
+
+            #endregion
+
+            //集中Api 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Api"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
+
+            services.AddScoped(typeof(ApiServices), typeof(ApiServices));
+            ServiceLocator.Instance = services;
 
             services.AddMvc();
         }
@@ -107,6 +136,32 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             lifetime.ApplicationStarted.Register(quartzStartup.Start);
             lifetime.ApplicationStopping.Register(quartzStartup.Stop);
+        }
+
+        /// <summary>  
+        /// 获取程序集中的实现类对应的多个接口
+        /// </summary>  
+        /// <param name="assemblyName">程序集</param>
+        public Dictionary<Type, Type[]> GetClassName(string assemblyName)
+        {
+            if (!String.IsNullOrEmpty(assemblyName))
+            {
+                Assembly assembly = Assembly.Load(assemblyName);
+                List<Type> ts = assembly.GetTypes().ToList();
+
+                var result = new Dictionary<Type, Type[]>();
+                foreach (var item in ts.Where(s => !s.IsInterface))
+                {
+                    var interfaceType = item.GetInterfaces();
+                    //
+                    if (interfaceType.Length > 0 && !item.IsAbstract)
+                    {
+                        result.Add(item, interfaceType);
+                    }
+                }
+                return result;
+            }
+            return new Dictionary<Type, Type[]>();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.0
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Bitcoin", "TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj", "{AA183161-8AB0-4856-9742-79745465CF3A}"
 EndProject
@@ -21,7 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RPCClients", "RPCClients", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.BitcoinCash.RPCClient", "..\..\BitcoinCash.RPCClient\src\TimemicroCore.BitcoinCash.RPCClient\TimemicroCore.BitcoinCash.RPCClient.csproj", "{5121AB6E-6914-4A82-8516-022C30EC6ED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimemicroCore.CoinsWallet.BitcoinCash", "TimemicroCore.CoinsWallet.BitcoinCash\TimemicroCore.CoinsWallet.BitcoinCash.csproj", "{64C64C83-ECC1-4396-9072-A4C2F97A20F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.BitcoinCash", "TimemicroCore.CoinsWallet.BitcoinCash\TimemicroCore.CoinsWallet.BitcoinCash.csproj", "{64C64C83-ECC1-4396-9072-A4C2F97A20F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.Zcash.RPCClient", "..\..\Zcash.RPCClient\src\TimemicroCore.Zcash.RPCClient\TimemicroCore.Zcash.RPCClient.csproj", "{8D12C306-2336-4833-B5EB-4587847D0DEA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Zcash", "TimemicroCore.CoinsWallet.Zcash\TimemicroCore.CoinsWallet.Zcash.csproj", "{321A8ABB-59CF-4F94-9F18-340D9E20D709}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +69,14 @@ Global
 		{64C64C83-ECC1-4396-9072-A4C2F97A20F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64C64C83-ECC1-4396-9072-A4C2F97A20F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64C64C83-ECC1-4396-9072-A4C2F97A20F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D12C306-2336-4833-B5EB-4587847D0DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D12C306-2336-4833-B5EB-4587847D0DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D12C306-2336-4833-B5EB-4587847D0DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D12C306-2336-4833-B5EB-4587847D0DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{321A8ABB-59CF-4F94-9F18-340D9E20D709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{321A8ABB-59CF-4F94-9F18-340D9E20D709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{321A8ABB-59CF-4F94-9F18-340D9E20D709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{321A8ABB-59CF-4F94-9F18-340D9E20D709}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +84,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3C77B167-E4A2-44C9-B050-60647198774E} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
 		{5121AB6E-6914-4A82-8516-022C30EC6ED1} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
+		{8D12C306-2336-4833-B5EB-4587847D0DEA} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0136D57D-96CF-47BF-A1C0-0D12FE695C5C}
