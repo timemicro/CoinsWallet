@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
+using TimemicroCore.CoinsWallet.Quartz.Bitcoin;
+using TimemicroCore.CoinsWallet.Quartz.BitcoinCash;
 
 namespace TimemicroCore.CoinsWallet.Quartz
 {
@@ -67,7 +69,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBCHConfirmTransactionQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BCHConfirmTransactionQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BCHConfirmTransactionQuartzJob>()
                 .WithIdentity("bchConfirmTransactionQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -86,7 +88,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBCHReceiveNotifyQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BCHReceiveNotifyQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BCHReceiveNotifyQuartzJob>()
                 .WithIdentity("bchReceiveNotifyQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -105,7 +107,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBCHSyncBlockQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BCHSyncBlockQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BCHSyncBlockQuartzJob>()
                 .WithIdentity("bchSyncBlockQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -124,7 +126,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBCHSyncTransactionQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BCHSyncTransactionQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BCHSyncTransactionQuartzJob>()
                 .WithIdentity("bchSyncTransactionQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -147,7 +149,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBTCConfirmTransactionQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BTCConfirmTransactionQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BTCConfirmTransactionQuartzJob>()
                 .WithIdentity("btcConfirmTransactionQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -166,7 +168,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBTCReceiveNotifyQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BTCReceiveNotifyQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BTCReceiveNotifyQuartzJob>()
                 .WithIdentity("btcReceiveNotifyQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -185,7 +187,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBTCSyncBlockQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BTCSyncBlockQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BTCSyncBlockQuartzJob>()
                 .WithIdentity("btcSyncBlockQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -204,7 +206,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddBTCSyncTransactionQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.BTCSyncTransactionQuartzJob>()
+            IJobDetail job = JobBuilder.Create<BTCSyncTransactionQuartzJob>()
                 .WithIdentity("btcSyncTransactionQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])

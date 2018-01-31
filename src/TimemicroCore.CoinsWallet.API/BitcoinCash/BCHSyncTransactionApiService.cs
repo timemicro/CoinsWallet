@@ -4,7 +4,7 @@ using System.Text;
 using TimemicroCore.CoinsWallet.BitcoinCash.Service;
 using TimemicroCore.CoinsWallet.Sdk.BitcoinCash;
 
-namespace TimemicroCore.CoinsWallet.Api.Impl
+namespace TimemicroCore.CoinsWallet.Api.BitcoinCash
 {
     public class BCHSyncTransactionApiService : AbstractApiService<BCHSyncTransactionReq, BCHSyncTransactionResp>
     {

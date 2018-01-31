@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Bitcoin", "TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj", "{AA183161-8AB0-4856-9742-79745465CF3A}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.Zcash.RPCClient", "..\..\Zcash.RPCClient\src\TimemicroCore.Zcash.RPCClient\TimemicroCore.Zcash.RPCClient.csproj", "{8D12C306-2336-4833-B5EB-4587847D0DEA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Zcash", "TimemicroCore.CoinsWallet.Zcash\TimemicroCore.CoinsWallet.Zcash.csproj", "{321A8ABB-59CF-4F94-9F18-340D9E20D709}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Coins", "Coins", "{80CF82A0-6301-4B4F-B647-6089A019BFBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,8 +84,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{AA183161-8AB0-4856-9742-79745465CF3A} = {80CF82A0-6301-4B4F-B647-6089A019BFBB}
 		{3C77B167-E4A2-44C9-B050-60647198774E} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
 		{5121AB6E-6914-4A82-8516-022C30EC6ED1} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
+		{64C64C83-ECC1-4396-9072-A4C2F97A20F2} = {80CF82A0-6301-4B4F-B647-6089A019BFBB}
 		{8D12C306-2336-4833-B5EB-4587847D0DEA} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

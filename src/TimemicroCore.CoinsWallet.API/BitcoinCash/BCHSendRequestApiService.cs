@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TimemicroCore.CoinsWallet.Bitcoin.PO;
-using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
+using TimemicroCore.CoinsWallet.BitcoinCash.PO;
+using TimemicroCore.CoinsWallet.Sdk.BitcoinCash;
 
-namespace TimemicroCore.CoinsWallet.Api.Impl
+namespace TimemicroCore.CoinsWallet.Api.BitcoinCash
 {
-    public class BTCSendRequestApiService : AbstractApiService<BTCSendRequestReq, BTCSendRequestResp>
+    public class BCHSendRequestApiService : AbstractApiService<BCHSendRequestReq, BCHSendRequestResp>
     {
         private CoinsWalletDbContext context;
 
-        public override string Name => "btc_sendrequest";
+        public override string Name => "bch_sendrequest";
 
-        public BTCSendRequestApiService(ApiServiceAppSettings appSettings, CoinsWalletDbContext context)
+        public BCHSendRequestApiService(ApiServiceAppSettings appSettings, CoinsWalletDbContext context)
         {
             AppSettings = appSettings;
             this.context = context;
         }
 
-        public override BTCSendRequestResp Execute(BTCSendRequestReq req)
+        public override BCHSendRequestResp Execute(BCHSendRequestReq req)
         {
-            var resp = new BTCSendRequestResp();
+            var resp = new BCHSendRequestResp();
 
             var sendRequest = context.SendRequests.Where(x => x.OutRequestNo == req.OutRequestNo).FirstOrDefault();
             if (sendRequest != null)

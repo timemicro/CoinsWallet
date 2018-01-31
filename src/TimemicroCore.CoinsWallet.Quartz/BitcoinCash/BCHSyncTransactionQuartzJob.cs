@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 using TimemicroCore.CoinsWallet.Network;
 using TimemicroCore.CoinsWallet.Sdk.BitcoinCash;
 
-namespace TimemicroCore.CoinsWallet.Quartz.Jobs
+namespace TimemicroCore.CoinsWallet.Quartz.BitcoinCash
 {
-    public class BCHConfirmTransactionQuartzJob : IJob
+    [DisallowConcurrentExecution]
+    public class BCHSyncTransactionQuartzJob : IJob
     {
-        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BCHConfirmTransactionQuartzJob));
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(BCHSyncTransactionQuartzJob));
 
         public string ApiKey { get; set; }
 
@@ -22,7 +23,7 @@ namespace TimemicroCore.CoinsWallet.Quartz.Jobs
         {
             try
             {
-                var req = new BCHConfirmTransactionReq();
+                var req = new BCHSyncTransactionReq();
 
                 req.Signature = req.SignByMD5(ApiKey);
 

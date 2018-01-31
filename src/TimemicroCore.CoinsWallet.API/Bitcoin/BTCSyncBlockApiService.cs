@@ -4,7 +4,7 @@ using System.Text;
 using TimemicroCore.CoinsWallet.Bitcoin.Service;
 using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
 
-namespace TimemicroCore.CoinsWallet.Api.Impl
+namespace TimemicroCore.CoinsWallet.Api.Bitcoin
 {
     public class BTCSyncBlockApiService : AbstractApiService<BTCSyncBlockReq, BTCSyncBlockResp>
     {

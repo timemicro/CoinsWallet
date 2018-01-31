@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TimemicroCore.CoinsWallet.Bitcoin.PO;
-using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
+using TimemicroCore.CoinsWallet.BitcoinCash.PO;
+using TimemicroCore.CoinsWallet.Sdk.BitcoinCash;
 
-namespace TimemicroCore.CoinsWallet.Api.Impl
+namespace TimemicroCore.CoinsWallet.Api.BitcoinCash
 {
-    public class BTCReceiveQueryApiService : AbstractApiService<BTCReceiveQueryReq, BTCReceiveQueryResp>
+    public class BCHReceiveQueryApiService : AbstractApiService<BCHReceiveQueryReq, BCHReceiveQueryResp>
     {
         private CoinsWalletDbContext context;
 
-        public override string Name => "btc_receivequery";
+        public override string Name => "bch_receivequery";
 
-        public BTCReceiveQueryApiService(ApiServiceAppSettings appSettings, CoinsWalletDbContext context)
+        public BCHReceiveQueryApiService(ApiServiceAppSettings appSettings, CoinsWalletDbContext context)
         {
             AppSettings = appSettings;
             this.context = context;
         }
 
-        public override BTCReceiveQueryResp Execute(BTCReceiveQueryReq req)
+        public override BCHReceiveQueryResp Execute(BCHReceiveQueryReq req)
         {
-            var resp = new BTCReceiveQueryResp()
+            var resp = new BCHReceiveQueryResp()
             {
-                Data = new BTCReceiveQueryRespData()
+                Data = new BCHReceiveQueryRespData()
                 {
                     Address = req.Address,
                     Amount = 0,
