@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Text;
 using TimemicroCore.CoinsWallet.Quartz.Bitcoin;
 using TimemicroCore.CoinsWallet.Quartz.BitcoinCash;
+using TimemicroCore.CoinsWallet.Quartz.LTC;
 
 namespace TimemicroCore.CoinsWallet.Quartz
 {
@@ -54,6 +55,14 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 AddZECReceiveNotifyQuartzJob();
                 AddZECSyncBlockQuartzJob();
                 AddZECSyncTransactionQuartzJob();
+            }
+
+            if (Configuration.GetValue<bool>("CoinsWallet:Litecoin:Enabled"))
+            {
+                AddLTCConfirmTransactionQuartzJob();
+                AddLTCReceiveNotifyQuartzJob();
+                AddLTCSyncBlockQuartzJob();
+                AddLTCSyncTransactionQuartzJob();
             }
         }
 
@@ -294,6 +303,86 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("zecSyncTransactionQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        #endregion
+
+        #region LTC
+
+        async void AddLTCConfirmTransactionQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<LTCConfirmTransactionQuartzJob>()
+                .WithIdentity("ltcConfirmTransactionQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ltcConfirmTransactionQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddLTCReceiveNotifyQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<LTCReceiveNotifyQuartzJob>()
+                .WithIdentity("ltcReceiveNotifyQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ltcReceiveNotifyQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddLTCSyncBlockQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<LTCSyncBlockQuartzJob>()
+                .WithIdentity("ltcSyncBlockQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ltcSyncBlockQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddLTCSyncTransactionQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<LTCSyncTransactionQuartzJob>()
+                .WithIdentity("ltcSyncTransactionQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ltcSyncTransactionQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
                     .WithIntervalInSeconds(5)
