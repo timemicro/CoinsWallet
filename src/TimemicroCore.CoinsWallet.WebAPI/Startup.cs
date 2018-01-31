@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
@@ -52,14 +53,6 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
             services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
 
-            services.AddScoped(typeof(BTCConfirmTransactionApiService), typeof(BTCConfirmTransactionApiService));
-            services.AddScoped(typeof(BTCNewAddressApiService), typeof(BTCNewAddressApiService));
-            services.AddScoped(typeof(BTCReceiveNotifyApiService), typeof(BTCReceiveNotifyApiService));
-            services.AddScoped(typeof(BTCReceiveQueryApiService), typeof(BTCReceiveQueryApiService));
-            services.AddScoped(typeof(BTCSendRequestApiService), typeof(BTCSendRequestApiService));
-            services.AddScoped(typeof(BTCSyncBlockApiService), typeof(BTCSyncBlockApiService));
-            services.AddScoped(typeof(BTCSyncTransactionApiService), typeof(BTCSyncTransactionApiService));
-
             #endregion
 
             #region BitcoinCash
@@ -73,15 +66,19 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddScoped(typeof(BitcoinCash.Service.IWalletService), typeof(BitcoinCash.Service.Impl.WalletServiceImpl));
             services.AddScoped(typeof(BitcoinCash.Service.IReceiveNotifyService), typeof(BitcoinCash.Service.Impl.ReceiveNotifyServiceImpl));
 
-            services.AddScoped(typeof(BCHConfirmTransactionApiService), typeof(BCHConfirmTransactionApiService));
-            services.AddScoped(typeof(BCHNewAddressApiService), typeof(BCHNewAddressApiService));
-            services.AddScoped(typeof(BCHReceiveNotifyApiService), typeof(BCHReceiveNotifyApiService));
-            services.AddScoped(typeof(BCHReceiveQueryApiService), typeof(BCHReceiveQueryApiService));
-            services.AddScoped(typeof(BCHSendRequestApiService), typeof(BCHSendRequestApiService));
-            services.AddScoped(typeof(BCHSyncBlockApiService), typeof(BCHSyncBlockApiService));
-            services.AddScoped(typeof(BCHSyncTransactionApiService), typeof(BCHSyncTransactionApiService));
-
             #endregion
+
+            //集中Api 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Api"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
+
+            services.AddScoped(typeof(ApiServices), typeof(ApiServices));
+            ServiceLocator.Instance = services.BuildServiceProvider();
 
             services.AddMvc();
         }
@@ -103,6 +100,32 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             lifetime.ApplicationStarted.Register(quartzStartup.Start);
             lifetime.ApplicationStopping.Register(quartzStartup.Stop);
+        }
+
+        /// <summary>  
+        /// 获取程序集中的实现类对应的多个接口
+        /// </summary>  
+        /// <param name="assemblyName">程序集</param>
+        public Dictionary<Type, Type[]> GetClassName(string assemblyName)
+        {
+            if (!String.IsNullOrEmpty(assemblyName))
+            {
+                Assembly assembly = Assembly.Load(assemblyName);
+                List<Type> ts = assembly.GetTypes().ToList();
+
+                var result = new Dictionary<Type, Type[]>();
+                foreach (var item in ts.Where(s => !s.IsInterface))
+                {
+                    var interfaceType = item.GetInterfaces();
+                    //
+                    if (interfaceType.Length > 0 && !item.IsAbstract)
+                    {
+                        result.Add(item, interfaceType);
+                    }
+                }
+                return result;
+            }
+            return new Dictionary<Type, Type[]>();
         }
     }
 }
