@@ -97,9 +97,9 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
 
             var highestBlockPO = context.Blocks.OrderByDescending(x => x.Height).Take(1).FirstOrDefault();
             var highestHeight = highestBlockPO == null ? bestBlockResp.Result.Height : highestBlockPO.Height;
-            if (bestBlockResp.Result.Height - highestHeight > 1)
+            if (bestBlockResp.Result.Height - highestHeight > 10)
             {
-                for (int i = highestHeight + 1; i < highestHeight + 10; i++)
+                for (int i = highestHeight + 1; i <= highestHeight + 10; i++)
                 {
                     var blockHashResp = rpcClient.Call<GetBlockHashResponse>(JsonRPCMethods.GetBlockHash, new GetBlockHashParams()
                     {

@@ -56,7 +56,8 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.PO
             modelBuilder.Entity<TransactionDetailsPO>(entity =>
             {
                 entity.ToTable("BTC_TRANSACTIONDETAILS");
-                entity.HasKey(x => new { x.TxId, x.Address });
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Id).HasColumnName("ID");
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
                 entity.Property(x => x.Amount).HasColumnName("AMOUNT");

@@ -6,6 +6,8 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.PO
 {
     public class TransactionDetailsPO
     {
+        public long Id { get; set; }
+
         public string TxId { get; set; }
 
         public string Address { get; set; }

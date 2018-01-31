@@ -69,7 +69,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 .WithIdentity("bchConfirmTransactionQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(30)
+                    .WithIntervalInSeconds(5)
                     .RepeatForever())
                 .Build();
 
@@ -107,7 +107,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 .WithIdentity("bchSyncBlockQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInMinutes(1)
+                    .WithIntervalInSeconds(5)
                     .RepeatForever())
                 .Build();
 
@@ -126,7 +126,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 .WithIdentity("bchSyncTransactionQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(30)
+                    .WithIntervalInSeconds(5)
                     .RepeatForever())
                 .Build();
 
@@ -149,7 +149,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 .WithIdentity("btcConfirmTransactionQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(30)
+                    .WithIntervalInSeconds(5)
                     .RepeatForever())
                 .Build();
 
@@ -187,7 +187,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 .WithIdentity("btcSyncBlockQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInMinutes(1)
+                    .WithIntervalInSeconds(5)
                     .RepeatForever())
                 .Build();
 
@@ -206,7 +206,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
                 .WithIdentity("btcSyncTransactionQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(30)
+                    .WithIntervalInSeconds(5)
                     .RepeatForever())
                 .Build();
 
