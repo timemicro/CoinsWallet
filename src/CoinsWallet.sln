@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Bitcoin", "TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj", "{AA183161-8AB0-4856-9742-79745465CF3A}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.Litecoin.RPCClient", "..\..\Litecoin.RPCClient\src\TimemicroCore.Litecoin.RPCClient\TimemicroCore.Litecoin.RPCClient.csproj", "{4F35386A-D4A4-4F0B-BD34-9C6BCFF7066C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Litecoin", "TimemicroCore.CoinsWallet.Litecoin\TimemicroCore.CoinsWallet.Litecoin.csproj", "{65925D63-2AE6-4320-9886-FF24C3D23E0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Coins", "Coins", "{8D11D662-6D2A-47C0-801A-5E63270A47EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,10 +96,14 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{AA183161-8AB0-4856-9742-79745465CF3A} = {8D11D662-6D2A-47C0-801A-5E63270A47EB}
 		{3C77B167-E4A2-44C9-B050-60647198774E} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
 		{5121AB6E-6914-4A82-8516-022C30EC6ED1} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
+		{64C64C83-ECC1-4396-9072-A4C2F97A20F2} = {8D11D662-6D2A-47C0-801A-5E63270A47EB}
 		{8D12C306-2336-4833-B5EB-4587847D0DEA} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
+		{321A8ABB-59CF-4F94-9F18-340D9E20D709} = {8D11D662-6D2A-47C0-801A-5E63270A47EB}
 		{4F35386A-D4A4-4F0B-BD34-9C6BCFF7066C} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
+		{65925D63-2AE6-4320-9886-FF24C3D23E0E} = {8D11D662-6D2A-47C0-801A-5E63270A47EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0136D57D-96CF-47BF-A1C0-0D12FE695C5C}
