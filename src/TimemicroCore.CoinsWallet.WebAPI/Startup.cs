@@ -36,6 +36,8 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddDbContext<Bitcoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<BitcoinCash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<Zcash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+            services.AddDbContext<Litecoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+
 
             services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
 
@@ -95,6 +97,26 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             //集中Service 注册服务
             foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Zcash"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
+
+            #endregion
+            
+            #region Litecoin
+
+            var ltcRpcUrl = Configuration["coinswallet:Litecoin:rpcclient:url"];
+            var ltcRpcUser = Configuration["coinswallet:Litecoin:rpcclient:user"];
+            var ltcRpcPassword = Configuration["coinswallet:Litecoin:rpcclient:password"];
+            var ltcWalletPassphrase = Configuration["coinswallet:Litecoin:rpcclient:WalletPassphrase"];
+
+            services.AddSingleton(typeof(Timemicro.Litecoin.RPCClient.JsonRPCClient), new Timemicro.Litecoin.RPCClient.JsonRPCClient(ltcRpcUrl, ltcRpcUser, ltcRpcPassword, ltcWalletPassphrase));
+
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Litcoin"))
             {
                 foreach (var typeArray in item.Value)
                 {
