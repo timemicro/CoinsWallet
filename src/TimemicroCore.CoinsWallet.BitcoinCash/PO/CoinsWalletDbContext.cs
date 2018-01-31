@@ -27,6 +27,8 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.PO
 
         public DbSet<SendTransactionDetailsPO> SendTransactionDetails { get; set; }
 
+        public DbSet<SendNotifyLogPO> SendNotifyLogs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ReceiveAddressPO>(entity =>
@@ -109,6 +111,17 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.PO
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
                 entity.Property(x => x.Amount).HasColumnName("AMOUNT");
+            });
+
+            modelBuilder.Entity<SendNotifyLogPO>(entity =>
+            {
+                entity.ToTable("BCH_SENDNOTIFYLOGS");
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.TxId).HasColumnName("TXID");
+                entity.Property(x => x.Address).HasColumnName("ADDRESS");
+                entity.Property(x => x.NotifiedCount).HasColumnName("NOTIFIEDCOUNT");
+                entity.Property(x => x.NotifyResponseText).HasColumnName("NOTIFYRESPONSETEXT");
+                entity.Property(x => x.NextNotifyTime).HasColumnName("NEXTNOTIFYTIME");
             });
         }
     }

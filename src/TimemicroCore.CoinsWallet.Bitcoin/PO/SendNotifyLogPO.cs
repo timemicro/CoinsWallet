@@ -6,6 +6,8 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.PO
 {
     public class SendNotifyLogPO
     {
+        public long Id { get; set; }
+
         public string TxId { get; set; }
 
         public string Address { get; set; }
@@ -15,7 +17,5 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.PO
         public string NotifyResponseText { get; set; }
 
         public DateTime NextNotifyTime { get; set; }
-
-        public DateTime CreateTime { get; set; }
     }
 }

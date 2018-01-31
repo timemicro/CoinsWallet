@@ -44,6 +44,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
             {
                 AddBTCConfirmTransactionQuartzJob();
                 AddBTCReceiveNotifyQuartzJob();
+                AddBTCSendNotifyQuartzJob();
                 AddBTCSyncBlockQuartzJob();
                 AddBTCSyncTransactionQuartzJob();
             }
@@ -176,6 +177,25 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("btcReceiveNotifyQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddBTCSendNotifyQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<BTCSendNotifyQuartzJob>()
+                .WithIdentity("btcSendNotifyQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("btcSendNotifyQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
                     .WithIntervalInSeconds(5)

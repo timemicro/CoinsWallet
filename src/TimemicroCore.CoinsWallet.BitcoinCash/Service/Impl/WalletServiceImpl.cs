@@ -313,6 +313,19 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.Service.Impl
 
                             context.SendTransactions.Add(sendTransactionPO);
 
+                            foreach (var item in sendRequests)
+                            {
+                                var sendNotifyLogPO = new SendNotifyLogPO()
+                                {
+                                    Address = item.Address,
+                                    NextNotifyTime = DateTime.Now,
+                                    NotifiedCount = 0,
+                                    NotifyResponseText = string.Empty,
+                                    TxId = sendManyResp.Result
+                                };
+                                context.SendNotifyLogs.Add(sendNotifyLogPO);
+                            }
+
                             context.SaveChanges();
                             tran.Commit();
                         }

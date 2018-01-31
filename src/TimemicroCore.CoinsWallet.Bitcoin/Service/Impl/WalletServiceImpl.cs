@@ -307,8 +307,20 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
                                 TxId = sendManyResp.Result,
                                 Fee = transactionResp.Result.Fee
                             };
-
                             context.SendTransactions.Add(sendTransactionPO);
+
+                            foreach (var item in sendRequests)
+                            {
+                                var sendNotifyLogPO = new SendNotifyLogPO()
+                                {
+                                    Address = item.Address,
+                                    NextNotifyTime = DateTime.Now,
+                                    NotifiedCount = 0,
+                                    NotifyResponseText = string.Empty,
+                                    TxId = sendManyResp.Result
+                                };
+                                context.SendNotifyLogs.Add(sendNotifyLogPO);
+                            }
 
                             context.SaveChanges();
                             tran.Commit();
