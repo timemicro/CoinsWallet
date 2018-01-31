@@ -9,6 +9,8 @@ namespace TimemicroCore.CoinsWallet.Api
 {
     public class ApiServices
     {
+        public IApiService ZECConfirmSendApiService { get; set; }
+
         private IDictionary<string, IApiService> services = new Dictionary<string, IApiService>();
         
         public ApiServices()
