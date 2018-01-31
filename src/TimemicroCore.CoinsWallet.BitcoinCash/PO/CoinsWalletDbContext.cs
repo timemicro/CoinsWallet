@@ -23,6 +23,10 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.PO
 
         public DbSet<SendRequestPO> SendRequests { get; set; }
 
+        public DbSet<SendTransactionPO> SendTransactions { get; set; }
+
+        public DbSet<SendTransactionDetailsPO> SendTransactionDetails { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ReceiveAddressPO>(entity =>
@@ -85,6 +89,26 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.PO
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
                 entity.Property(x => x.Amount).HasColumnName("AMOUNT");
                 entity.Property(x => x.State).HasColumnName("STATE");
+                entity.Property(x => x.CreateTime).HasColumnName("CREATETIME").ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<SendTransactionPO>(entity =>
+            {
+                entity.ToTable("BCH_SENDTRANSACTIONS");
+                entity.HasKey(x => x.TxId);
+                entity.Property(x => x.TxId).HasColumnName("TXID");
+                entity.Property(x => x.Amount).HasColumnName("AMOUNT");
+                entity.Property(x => x.Fee).HasColumnName("FEE");
+                entity.Property(x => x.CreateTime).HasColumnName("CREATETIME").ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<SendTransactionDetailsPO>(entity =>
+            {
+                entity.ToTable("BCH_SENDTRANSACTIONDETAILS");
+                entity.HasKey(x => new { x.TxId, x.Address });
+                entity.Property(x => x.TxId).HasColumnName("TXID");
+                entity.Property(x => x.Address).HasColumnName("ADDRESS");
+                entity.Property(x => x.Amount).HasColumnName("AMOUNT");
             });
         }
     }

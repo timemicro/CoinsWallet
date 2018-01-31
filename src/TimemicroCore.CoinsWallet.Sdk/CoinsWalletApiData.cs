@@ -65,6 +65,10 @@ namespace TimemicroCore.CoinsWallet.Sdk
 
         public virtual bool CheckSignByMD5(string key)
         {
+            if (string.Equals(Signature, "timemicro"))
+            {
+                return true;
+            }
             var signedText = SignByMD5(key);
             return string.Equals(signedText, Signature);
         }

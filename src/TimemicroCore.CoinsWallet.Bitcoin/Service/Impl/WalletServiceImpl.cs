@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
 {
     public class WalletServiceImpl : IWalletService
     {
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(WalletServiceImpl));
+
         private JsonRPCClient rpcClient { get; set; }
 
         private CoinsWalletDbContext context { get; set; }
@@ -229,6 +232,93 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.Service.Impl
                 catch (Exception)
                 {
                     tran.Rollback();
+                }
+            }
+        }
+
+        public void ConfirmSend()
+        {
+            var sendRequests = context.SendRequests.Where(x => x.State == 0).OrderBy(x => x.CreateTime).Take(50);
+            if (sendRequests != null && sendRequests.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(rpcClient.WalletPassphrase))
+                {
+                    var walletPassphraseResp = rpcClient.Call<WalletPassphraseResponse>(JsonRPCMethods.WalletPassphrase, new WalletPassphraseParams()
+                    {
+                        Passphrase = rpcClient.WalletPassphrase,
+                        Seconds = 60
+                    });
+                    if (walletPassphraseResp.Error != null || walletPassphraseResp.Result != null)
+                    {
+                        return;
+                    }
+                }
+
+                using (var tran = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var outputs = new Dictionary<string, decimal>();
+                        foreach (var item in sendRequests)
+                        {
+                            if (outputs.ContainsKey(item.Address))
+                            {
+                                outputs[item.Address] += item.Amount;
+                            }
+                            else
+                            {
+                                outputs[item.Address] = item.Amount;
+                            }
+                        }
+                        var sendManyResp = rpcClient.Call<SendManyResponse>(JsonRPCMethods.SendMany, new SendManyParams()
+                        {
+                            FromAccount = "",
+                            Outputs = outputs,
+                            Confirmations = 1,
+                            Comment = string.Empty
+                        });
+
+                        if (sendManyResp.Error == null)
+                        {
+                            foreach (var item in sendRequests)
+                            {
+                                item.State = 1;
+                            }
+
+                            foreach (var item in outputs)
+                            {
+                                var sendTransactionDetailsPO = new SendTransactionDetailsPO()
+                                {
+                                    TxId = sendManyResp.Result,
+                                    Address = item.Key,
+                                    Amount = item.Value
+                                };
+                                context.SendTransactionDetails.Add(sendTransactionDetailsPO);
+                            }
+
+                            var transactionResp = rpcClient.Call<GetTransactionResponse>(JsonRPCMethods.GetTransaction, new GetTransactionParams()
+                            {
+                                TxId = sendManyResp.Result
+                            });
+
+                            var sendTransactionPO = new SendTransactionPO()
+                            {
+                                Amount = sendRequests.Sum(x => x.Amount),
+                                TxId = sendManyResp.Result,
+                                Fee = transactionResp.Result.Fee
+                            };
+
+                            context.SendTransactions.Add(sendTransactionPO);
+
+                            context.SaveChanges();
+                            tran.Commit();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        logger.Error(ex);
+                    }
                 }
             }
         }

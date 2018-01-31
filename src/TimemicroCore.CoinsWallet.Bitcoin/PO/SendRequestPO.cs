@@ -15,5 +15,7 @@ namespace TimemicroCore.CoinsWallet.Bitcoin.PO
         public decimal Amount { get; set; }
 
         public int State { get; set; }
+
+        public DateTime CreateTime { get; set; }
     }
 }

@@ -46,12 +46,14 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             var btcRpcUrl = Configuration["coinswallet:bitcoin:rpcclient:url"];
             var btcRpcUser = Configuration["coinswallet:bitcoin:rpcclient:user"];
             var btcRpcPassword = Configuration["coinswallet:bitcoin:rpcclient:password"];
+            var btcWalletPassphrase = Configuration["coinswallet:bitcoin:rpcclient:WalletPassphrase"];
 
-            services.AddSingleton(typeof(Timemicro.Bitcoin.RPCClient.JsonRPCClient), new Timemicro.Bitcoin.RPCClient.JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword));
+            services.AddSingleton(typeof(Timemicro.Bitcoin.RPCClient.JsonRPCClient), new Timemicro.Bitcoin.RPCClient.JsonRPCClient(btcRpcUrl, btcRpcUser, btcRpcPassword, btcWalletPassphrase));
 
             services.AddScoped(typeof(Bitcoin.Service.IWalletService), typeof(Bitcoin.Service.Impl.WalletServiceImpl));
             services.AddScoped(typeof(Bitcoin.Service.IReceiveNotifyService), typeof(Bitcoin.Service.Impl.ReceiveNotifyServiceImpl));
 
+            services.AddScoped(typeof(BTCConfirmSendApiService), typeof(BTCConfirmSendApiService));
             services.AddScoped(typeof(BTCConfirmTransactionApiService), typeof(BTCConfirmTransactionApiService));
             services.AddScoped(typeof(BTCNewAddressApiService), typeof(BTCNewAddressApiService));
             services.AddScoped(typeof(BTCReceiveNotifyApiService), typeof(BTCReceiveNotifyApiService));
@@ -67,12 +69,14 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             var bchRpcUrl = Configuration["coinswallet:bitcoincash:rpcclient:url"];
             var bchRpcUser = Configuration["coinswallet:bitcoincash:rpcclient:user"];
             var bchRpcPassword = Configuration["coinswallet:bitcoincash:rpcclient:password"];
+            var bchWalletPassphrase = Configuration["coinswallet:bitcoincash:rpcclient:WalletPassphrase"];
 
-            services.AddSingleton(typeof(Timemicro.BitcoinCash.RPCClient.JsonRPCClient), new Timemicro.BitcoinCash.RPCClient.JsonRPCClient(bchRpcUrl, bchRpcUser, bchRpcPassword));
+            services.AddSingleton(typeof(Timemicro.BitcoinCash.RPCClient.JsonRPCClient), new Timemicro.BitcoinCash.RPCClient.JsonRPCClient(bchRpcUrl, bchRpcUser, bchRpcPassword, bchWalletPassphrase));
 
             services.AddScoped(typeof(BitcoinCash.Service.IWalletService), typeof(BitcoinCash.Service.Impl.WalletServiceImpl));
             services.AddScoped(typeof(BitcoinCash.Service.IReceiveNotifyService), typeof(BitcoinCash.Service.Impl.ReceiveNotifyServiceImpl));
 
+            services.AddScoped(typeof(BCHConfirmSendApiService), typeof(BCHConfirmSendApiService));
             services.AddScoped(typeof(BCHConfirmTransactionApiService), typeof(BCHConfirmTransactionApiService));
             services.AddScoped(typeof(BCHNewAddressApiService), typeof(BCHNewAddressApiService));
             services.AddScoped(typeof(BCHReceiveNotifyApiService), typeof(BCHReceiveNotifyApiService));

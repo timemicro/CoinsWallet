@@ -6,6 +6,10 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.Service
 {
     public interface IWalletService
     {
+        /// <summary>
+        /// 获取新地址
+        /// </summary>
+        /// <returns></returns>
         string GetNewAddress();
 
         /// <summary>
@@ -23,5 +27,10 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.Service
         /// 确认交易
         /// </summary>
         void ConfirmTransaction();
+
+        /// <summary>
+        /// 确认发送
+        /// </summary>
+        void ConfirmSend();
     }
 }

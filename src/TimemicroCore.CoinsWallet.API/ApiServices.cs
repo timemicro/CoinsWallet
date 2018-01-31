@@ -10,13 +10,15 @@ namespace TimemicroCore.CoinsWallet.Api
         private IDictionary<string, IApiService> services = new Dictionary<string, IApiService>();
 
         public ApiServices(
-              BCHConfirmTransactionApiService bchConfirmTransactionApiService
+              BCHConfirmSendApiService bchConfirmSendApiService
+            , BCHConfirmTransactionApiService bchConfirmTransactionApiService
             , BCHNewAddressApiService bchNewAddressApiService
             , BCHReceiveNotifyApiService bchReceiveNotifyApiService
             , BCHReceiveQueryApiService bchReceiveQueryApiService
             , BCHSendRequestApiService bchSendRequestApiService
             , BCHSyncBlockApiService bchSyncBlockApiService
             , BCHSyncTransactionApiService bchSyncTransactionApiService
+            , BTCConfirmSendApiService btcConfirmSendApiService
             , BTCConfirmTransactionApiService btcConfirmTransactionApiService
             , BTCNewAddressApiService btcNewAddressApiService
             , BTCReceiveNotifyApiService btcReceiveNotifyApiService
@@ -25,6 +27,7 @@ namespace TimemicroCore.CoinsWallet.Api
             , BTCSyncBlockApiService btcSyncBlockApiService
             , BTCSyncTransactionApiService btcSyncTransactionApiService)
         {
+            services[bchConfirmSendApiService.Name] = bchConfirmSendApiService;
             services[bchConfirmTransactionApiService.Name] = bchConfirmTransactionApiService;
             services[bchNewAddressApiService.Name] = bchNewAddressApiService;
             services[bchReceiveNotifyApiService.Name] = bchReceiveNotifyApiService;
@@ -33,6 +36,7 @@ namespace TimemicroCore.CoinsWallet.Api
             services[bchSyncBlockApiService.Name] = bchSyncBlockApiService;
             services[bchSyncTransactionApiService.Name] = bchSyncTransactionApiService;
 
+            services[btcConfirmSendApiService.Name] = btcConfirmSendApiService;
             services[btcConfirmTransactionApiService.Name] = btcConfirmTransactionApiService;
             services[btcNewAddressApiService.Name] = btcNewAddressApiService;
             services[btcReceiveNotifyApiService.Name] = btcReceiveNotifyApiService;
