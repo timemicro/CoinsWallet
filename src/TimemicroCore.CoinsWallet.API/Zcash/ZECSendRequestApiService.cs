@@ -3,7 +3,7 @@ using System.Linq;
 using TimemicroCore.CoinsWallet.Zcash.PO;
 using TimemicroCore.CoinsWallet.Sdk.Zcash;
 
-namespace TimemicroCore.CoinsWallet.Api.Impl
+namespace TimemicroCore.CoinsWallet.Api.Zcash
 {
     public class ZECSendRequestApiService : AbstractApiService<ZECSendRequestReq, ZECSendRequestResp>
     {
