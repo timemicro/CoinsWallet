@@ -278,7 +278,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddZECConfirmTransactionQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.ZECConfirmTransactionQuartzJob>()
+            IJobDetail job = JobBuilder.Create<Zcash.ZECConfirmTransactionQuartzJob>()
                 .WithIdentity("zecConfirmTransactionQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -297,7 +297,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddZECReceiveNotifyQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.ZECReceiveNotifyQuartzJob>()
+            IJobDetail job = JobBuilder.Create<Zcash.ZECReceiveNotifyQuartzJob>()
                 .WithIdentity("zecReceiveNotifyQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -316,7 +316,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddZECSyncBlockQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.ZECSyncBlockQuartzJob>()
+            IJobDetail job = JobBuilder.Create<Zcash.ZECSyncBlockQuartzJob>()
                 .WithIdentity("zecSyncBlockQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
@@ -335,7 +335,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
         async void AddZECSyncTransactionQuartzJob()
         {
-            IJobDetail job = JobBuilder.Create<Jobs.ZECSyncTransactionQuartzJob>()
+            IJobDetail job = JobBuilder.Create<Zcash.ZECSyncTransactionQuartzJob>()
                 .WithIdentity("zecSyncTransactionQuartzJob", "group1")
                 .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
                 .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])

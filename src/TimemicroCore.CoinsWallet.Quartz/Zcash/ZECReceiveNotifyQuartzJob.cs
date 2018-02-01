@@ -3,18 +3,17 @@ using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TimemicroCore.CoinsWallet.Network;
 using TimemicroCore.CoinsWallet.Sdk.Zcash;
 
-namespace TimemicroCore.CoinsWallet.Quartz.Jobs
+namespace TimemicroCore.CoinsWallet.Quartz.Zcash
 {
     [DisallowConcurrentExecution]
-    public class ZECSyncBlockQuartzJob : IJob
+    public class ZECReceiveNotifyQuartzJob : IJob
     {
-        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(ZECSyncBlockQuartzJob));
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(ZECReceiveNotifyQuartzJob));
 
         public string ApiKey { get; set; }
 
@@ -22,7 +21,7 @@ namespace TimemicroCore.CoinsWallet.Quartz.Jobs
 
         public Task Execute(IJobExecutionContext context)
         {
-            var req = new ZECSyncBlockReq();
+            var req = new ZECReceiveNotifyReq();
 
             req.Signature = req.SignByMD5(ApiKey);
 
