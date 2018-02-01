@@ -116,7 +116,7 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddSingleton(typeof(Timemicro.Litecoin.RPCClient.JsonRPCClient), new Timemicro.Litecoin.RPCClient.JsonRPCClient(ltcRpcUrl, ltcRpcUser, ltcRpcPassword, ltcWalletPassphrase));
 
             //集中Service 注册服务
-            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Litcoin"))
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Litecoin"))
             {
                 foreach (var typeArray in item.Value)
                 {

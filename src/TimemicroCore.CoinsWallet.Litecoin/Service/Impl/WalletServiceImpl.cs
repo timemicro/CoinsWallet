@@ -11,7 +11,6 @@ namespace TimemicroCore.CoinsWallet.Litecoin.Service.Impl
 {
     public class WalletServiceImpl : IWalletService
     {
-
         static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(WalletServiceImpl));
 
         private JsonRPCClient rpcClient { get; set; }
@@ -230,10 +229,9 @@ namespace TimemicroCore.CoinsWallet.Litecoin.Service.Impl
                     context.SaveChanges();
                     tran.Commit();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     tran.Rollback();
-                    logger.Error(ex);
                 }
             }
         }
@@ -272,7 +270,6 @@ namespace TimemicroCore.CoinsWallet.Litecoin.Service.Impl
                                 outputs[item.Address] = item.Amount;
                             }
                         }
-
                         var sendManyResp = rpcClient.Call<SendManyResponse>(JsonRPCMethods.SendMany, new SendManyParams()
                         {
                             FromAccount = "",
@@ -310,8 +307,20 @@ namespace TimemicroCore.CoinsWallet.Litecoin.Service.Impl
                                 TxId = sendManyResp.Result,
                                 Fee = transactionResp.Result.Fee
                             };
-
                             context.SendTransactions.Add(sendTransactionPO);
+
+                            foreach (var item in sendRequests)
+                            {
+                                var sendNotifyLogPO = new SendNotifyLogPO()
+                                {
+                                    Address = item.Address,
+                                    NextNotifyTime = DateTime.Now,
+                                    NotifiedCount = 0,
+                                    NotifyResponseText = string.Empty,
+                                    TxId = sendManyResp.Result
+                                };
+                                context.SendNotifyLogs.Add(sendNotifyLogPO);
+                            }
 
                             context.SaveChanges();
                             tran.Commit();
