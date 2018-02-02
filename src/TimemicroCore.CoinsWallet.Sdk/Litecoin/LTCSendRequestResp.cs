@@ -4,11 +4,11 @@ using System.Text;
 
 namespace TimemicroCore.CoinsWallet.Sdk.Litecoin
 {
-    public class LTCSyncTransactionResp : CoinsWalletApiRespData
+    public class LTCSendRequestResp : CoinsWalletApiRespData
     {
-        public LTCSyncTransactionResp()
+        public LTCSendRequestResp()
         {
-            Service = "ltc_synctransaction";
+            Service = "ltc_sendrequest";
         }
     }
 }

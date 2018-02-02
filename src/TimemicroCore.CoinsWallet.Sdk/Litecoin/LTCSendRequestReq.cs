@@ -5,24 +5,28 @@ using System.Text;
 
 namespace TimemicroCore.CoinsWallet.Sdk.Litecoin
 {
-    public class LTCReceiveQueryReq : CoinsWalletApiData
+    public class LTCSendRequestReq : CoinsWalletApiData
     {
-        public LTCReceiveQueryReq()
+        public LTCSendRequestReq()
         {
-            Service = "ltc_receivequery";
+            Service = "ltc_sendrequest";
         }
-
-        [JsonProperty("txid")]
-        public string TxId { get { return Get<string>("txid"); } set { Set("txid", value); } }
 
         [JsonProperty("address")]
         public string Address { get { return Get<string>("address"); } set { Set("address", value); } }
 
+        [JsonProperty("amount")]
+        public decimal Amount { get { return Get<decimal>("amount"); } set { Set("amount", value); } }
+
+        [JsonProperty("outRequestNo")]
+        public string OutRequestNo { get { return Get<string>("outRequestNo"); } set { Set("outRequestNo", value); } }
+
         public override IList<string> GetSignProperties()
         {
             var props = base.GetSignProperties();
-            props.Add("txid");
             props.Add("address");
+            props.Add("amount");
+            props.Add("outRequestId");
             return props;
         }
     }

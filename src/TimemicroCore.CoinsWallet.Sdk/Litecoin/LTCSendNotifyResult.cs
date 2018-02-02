@@ -5,26 +5,23 @@ using System.Text;
 
 namespace TimemicroCore.CoinsWallet.Sdk.Litecoin
 {
-    public class LTCReceiveNotifyResult : CoinsWalletApiData
+    public class LTCSendNotifyResult : CoinsWalletApiData
     {
-        public LTCReceiveNotifyResult()
+        public LTCSendNotifyResult()
         {
             Service = "ltc_receivenotify";
         }
 
         [JsonProperty("data")]
-        public List<LTCReceiveNotifyResultDataItem> Data { get; set; }
+        public List<LTCSendNotifyResultDataItem> Data { get; set; }
     }
 
-    public class LTCReceiveNotifyResultDataItem
+    public class LTCSendNotifyResultDataItem
     {
         [JsonProperty("txid")]
         public string TxId { get; set; }
 
         [JsonProperty("address")]
         public string Address { get; set; }
-
-        [JsonProperty("amount")]
-        public decimal Amount { get; set; }
     }
 }

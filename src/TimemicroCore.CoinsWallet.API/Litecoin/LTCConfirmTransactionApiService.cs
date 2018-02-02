@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using TimemicroCore.CoinsWallet.Litecoin.Service;
-using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
+using TimemicroCore.CoinsWallet.Sdk.Litecoin;
 
-namespace TimemicroCore.CoinsWallet.Api.LTC
+namespace TimemicroCore.CoinsWallet.Api.Litecoin
 {
     public class LTCConfirmTransactionApiService : AbstractApiService<LTCConfirmTransactionReq, LTCConfirmTransactionResp>
     {

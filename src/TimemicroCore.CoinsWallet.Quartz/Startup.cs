@@ -7,13 +7,13 @@ using System.Collections.Specialized;
 using System.Text;
 using TimemicroCore.CoinsWallet.Quartz.Bitcoin;
 using TimemicroCore.CoinsWallet.Quartz.BitcoinCash;
-using TimemicroCore.CoinsWallet.Quartz.LTC;
+using TimemicroCore.CoinsWallet.Quartz.Litecoin;
 
 namespace TimemicroCore.CoinsWallet.Quartz
 {
     public class Startup
     {
-        public IConfiguration Configuration  { get; }
+        public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
@@ -63,6 +63,7 @@ namespace TimemicroCore.CoinsWallet.Quartz
             {
                 AddLTCConfirmTransactionQuartzJob();
                 AddLTCReceiveNotifyQuartzJob();
+                AddLTCSendNotifyQuartzJob();
                 AddLTCSyncBlockQuartzJob();
                 AddLTCSyncTransactionQuartzJob();
             }
@@ -393,6 +394,26 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
             await scheduler.ScheduleJob(job, trigger);
         }
+
+        async void AddLTCSendNotifyQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<BCHSendNotifyQuartzJob>()
+                .WithIdentity("ltcSendNotifyQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ltcSendNotifyQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
 
         async void AddLTCSyncBlockQuartzJob()
         {

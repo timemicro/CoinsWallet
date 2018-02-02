@@ -23,5 +23,10 @@ namespace TimemicroCore.CoinsWallet.Litecoin.Service
         /// 确认交易
         /// </summary>
         void ConfirmTransaction();
+
+        /// <summary>
+        /// 确认发送
+        /// </summary>
+        void ConfirmSend();
     }
 }

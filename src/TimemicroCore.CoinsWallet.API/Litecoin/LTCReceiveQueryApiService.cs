@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TimemicroCore.CoinsWallet.Bitcoin.PO;
-using TimemicroCore.CoinsWallet.Sdk.Bitcoin;
+using TimemicroCore.CoinsWallet.Litecoin.PO;
+using TimemicroCore.CoinsWallet.Sdk.Litecoin;
 
-namespace TimemicroCore.CoinsWallet.Api.LTC
+namespace TimemicroCore.CoinsWallet.Api.Litecoin
 {
     public class LTCReceiveQueryApiService : AbstractApiService<LTCReceiveQueryReq, LTCReceiveQueryResp>
     {
