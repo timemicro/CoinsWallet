@@ -37,10 +37,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.API\TimemicroCore.CoinsWallet.Api.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.BitcoinCash\TimemicroCore.CoinsWallet.BitcoinCash.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Bitcoin\TimemicroCore.CoinsWallet.Bitcoin.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Ethereum\TimemicroCore.CoinsWallet.Ethereum.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Litecoin\TimemicroCore.CoinsWallet.Litecoin.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Quartz\TimemicroCore.CoinsWallet.Quartz.csproj" />
     <ProjectReference Include="..\TimemicroCore.CoinsWallet.Sdk\TimemicroCore.CoinsWallet.Sdk.csproj" />
+    <ProjectReference Include="..\TimemicroCore.CoinsWallet.Zcash\TimemicroCore.CoinsWallet.Zcash.csproj" />
   </ItemGroup>
 
 </Project>
