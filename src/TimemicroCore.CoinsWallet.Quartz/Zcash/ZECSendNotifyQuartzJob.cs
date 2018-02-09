@@ -11,9 +11,9 @@ using TimemicroCore.CoinsWallet.Sdk.Zcash;
 namespace TimemicroCore.CoinsWallet.Quartz.Zcash
 {
     [DisallowConcurrentExecution]
-    public class ZECSyncTransactionQuartzJob : IJob
+    public class ZECSendNotifyQuartzJob : IJob
     {
-        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(ZECSyncTransactionQuartzJob));
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(ZECSendNotifyQuartzJob));
 
         public string ApiKey { get; set; }
 
@@ -23,7 +23,7 @@ namespace TimemicroCore.CoinsWallet.Quartz.Zcash
         {
             try
             {
-                var req = new ZECSyncTransactionReq();
+                var req = new ZECSendNotifyReq();
 
                 req.Signature = req.SignByMD5(ApiKey);
 

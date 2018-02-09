@@ -22,15 +22,22 @@ namespace TimemicroCore.CoinsWallet.Quartz.Zcash
 
         public Task Execute(IJobExecutionContext context)
         {
-            var req = new ZECSyncBlockReq();
+            try
+            {
+                var req = new ZECSyncBlockReq();
 
-            req.Signature = req.SignByMD5(ApiKey);
+                req.Signature = req.SignByMD5(ApiKey);
 
-            var http = WebRequest.CreateHttp($"{ApiUrl}{req.Service}");
+                var http = WebRequest.CreateHttp($"{ApiUrl}{req.Service}");
 
-            logger.Info($"{req.Service} requestText {req.ToJson()}");
-            var responseText = http.PostJson(req.ToJson());
-            logger.Info($"{req.Service} responseText {responseText}");
+                logger.Info($"{req.Service} requestText {req.ToJson()}");
+                var responseText = http.PostJson(req.ToJson());
+                logger.Info($"{req.Service} responseText {responseText}");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
 
             return null;
         }

@@ -9,7 +9,7 @@ namespace TimemicroCore.CoinsWallet.Sdk.Litecoin
     {
         public LTCReceiveQueryResp()
         {
-            Service = "btc_receivequery";
+            Service = "ltc_receivequery";
         }
     }
 

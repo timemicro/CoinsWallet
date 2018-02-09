@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,19 +8,18 @@ using System.Text;
 using TimemicroCore.CoinsWallet.Zcash.PO;
 using TimemicroCore.CoinsWallet.Network;
 using TimemicroCore.CoinsWallet.Sdk.Zcash;
-using Microsoft.Extensions.Configuration;
 
 namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
 {
-    public class ReceiveNotifyServiceImpl : IReceiveNotifyService
+    public class SendNotifyServiceImpl : ISendNotifyService
     {
-        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(ReceiveNotifyServiceImpl));
+        static ILog logger = LogManager.GetLogger("NETCoreRepository", typeof(SendNotifyServiceImpl));
 
         private IConfiguration configuration;
 
         private CoinsWalletDbContext context;
 
-        public ReceiveNotifyServiceImpl(IConfiguration configuration, CoinsWalletDbContext context)
+        public SendNotifyServiceImpl(IConfiguration configuration, CoinsWalletDbContext context)
         {
             this.configuration = configuration;
             this.context = context;
@@ -59,7 +59,7 @@ namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
 
         public void Notify()
         {
-            var logs = context.ReceiveNotifyLogs
+            var logs = context.SendNotifyLogs
                 .Where(x => x.NextNotifyTime > DateTime.Now.Date.AddDays(-1)
                     && x.NextNotifyTime < DateTime.Now
                     && x.NotifiedCount <= 6)
@@ -70,23 +70,22 @@ namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
                 return;
             }
 
-            var result = new ZECReceiveNotifyResult()
+            var result = new ZECSendNotifyResult()
             {
-                Data = new List<ZECReceiveNotifyResultDataItem>()
+                Data = new List<ZECSendNotifyResultDataItem>()
             };
 
             foreach (var item in logs)
             {
-                result.Data.Add(new ZECReceiveNotifyResultDataItem()
+                result.Data.Add(new ZECSendNotifyResultDataItem()
                 {
                     Address = item.Address,
-                    Amount = item.Amount,
                     TxId = item.TxId
                 });
             }
 
             var responseText = string.Empty;
-            var http = WebRequest.CreateHttp(configuration["CoinsWallet:Zcash:ReceiveNotifyUrl"]);
+            var http = WebRequest.CreateHttp(configuration["CoinsWallet:Zcash:SendNotifyUrl"]);
             try
             {
                 responseText = http.PostJson(result.ToJson());
