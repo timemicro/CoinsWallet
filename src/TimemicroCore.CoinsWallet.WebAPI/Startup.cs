@@ -126,6 +126,29 @@ namespace TimemicroCore.CoinsWallet.WebAPI
 
             #endregion
 
+            #region Dash
+
+            var dashRpcUrl = Configuration["coinswallet:dash:rpcclient:url"];
+            var dashRpcUser = Configuration["coinswallet:dash:rpcclient:user"];
+            var dashRpcPassword = Configuration["coinswallet:dash:rpcclient:password"];
+            var dashWalletPassphrase = Configuration["coinswallet:dash:rpcclient:WalletPassphrase"];
+
+            services.AddSingleton(typeof(Timemicro.Dash.RPCClient.JsonRPCClient), new Timemicro.Dash.RPCClient.JsonRPCClient(dashRpcUrl, dashRpcUser, dashRpcPassword, dashWalletPassphrase));
+
+            //services.AddScoped(typeof(Dash.Service.IWalletService), typeof(Dash.Service.Impl.WalletServiceImpl));
+            //services.AddScoped(typeof(Dash.Service.IReceiveNotifyService), typeof(Dash.Service.Impl.ReceiveNotifyServiceImpl));
+
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Dash"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
+
+            #endregion
+
             //集中Api 注册服务
             foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Api"))
             {
