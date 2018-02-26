@@ -4,7 +4,7 @@ using TimemicroCore.CoinsWallet.Sdk.Zcash;
 
 namespace TimemicroCore.CoinsWallet.Api.Zcash
 {
-    public class ZECSyncBlockApiService : AbstractApiService<ZECSyncBlockReq, ZECSyncBlockResp>
+    public class ZECSyncBlockApiService : AbstractApiService<ZECSyncBlockReq, ZECSyncBlockResp>,IDisposable
     {
         private IWalletService WalletService { get; set; }
 
@@ -22,6 +22,12 @@ namespace TimemicroCore.CoinsWallet.Api.Zcash
             var resp = new ZECSyncBlockResp();
             resp.Signature = resp.SignByMD5(AppSettings.ApiKey);
             return resp;
+        }
+
+        public void Dispose()
+        {
+            AppSettings = null;
+            WalletService = null;
         }
     }
 }
