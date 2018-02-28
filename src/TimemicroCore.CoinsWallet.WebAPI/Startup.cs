@@ -36,9 +36,9 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddDbContext<Bitcoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<BitcoinCash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<Zcash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+            services.AddDbContext<Ethereum.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<Litecoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<Dash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
-
 
             services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
 
@@ -93,8 +93,9 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             var zecRpcUrl = Configuration["coinswallet:zcash:rpcclient:url"];
             var zecRpcUser = Configuration["coinswallet:zcash:rpcclient:user"];
             var zecRpcPassword = Configuration["coinswallet:zcash:rpcclient:password"];
+            var zecWalletPassphrase = Configuration["coinswallet:zcash:rpcclient:WalletPassphrase"];
 
-            services.AddSingleton(typeof(Timemicro.Zcash.RPCClient.JsonRPCClient), new Timemicro.Zcash.RPCClient.JsonRPCClient(zecRpcUrl, zecRpcUser, zecRpcPassword));
+            services.AddSingleton(typeof(Timemicro.Zcash.RPCClient.JsonRPCClient), new Timemicro.Zcash.RPCClient.JsonRPCClient(zecRpcUrl, zecRpcUser, zecRpcPassword, zecWalletPassphrase));
 
             //集中Service 注册服务
             foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Zcash"))
@@ -106,7 +107,27 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             }
 
             #endregion
-            
+
+            #region Ethereum
+
+            var ethRpcUrl = Configuration["coinswallet:ethereum:rpcclient:url"];
+            var ethRpcUser = Configuration["coinswallet:ethereum:rpcclient:user"];
+            var ethRpcPassword = Configuration["coinswallet:ethereum:rpcclient:password"];
+            var ethWalletPassphrase = Configuration["coinswallet:ethereum:rpcclient:WalletPassphrase"];
+
+            services.AddSingleton(typeof(Timemicro.Ethereum.RPCClient.JsonRPCClient), new Timemicro.Ethereum.RPCClient.JsonRPCClient(ethRpcUrl, ethRpcUser, ethRpcPassword, ethWalletPassphrase));
+
+            //集中Service 注册服务
+            foreach (var item in GetClassName("TimemicroCore.CoinsWallet.Ethereum"))
+            {
+                foreach (var typeArray in item.Value)
+                {
+                    services.AddScoped(typeArray, item.Key);
+                }
+            }
+
+            #endregion
+
             #region Litecoin
 
             var ltcRpcUrl = Configuration["coinswallet:Litecoin:rpcclient:url"];

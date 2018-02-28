@@ -55,8 +55,18 @@ namespace TimemicroCore.CoinsWallet.Quartz
             {
                 AddZECConfirmTransactionQuartzJob();
                 AddZECReceiveNotifyQuartzJob();
+                AddZECSendNotifyQuartzJob();
                 AddZECSyncBlockQuartzJob();
                 AddZECSyncTransactionQuartzJob();
+            }
+
+            if (Configuration.GetValue<bool>("CoinsWallet:Ethereum:Enabled"))
+            {
+                AddETHConfirmTransactionQuartzJob();
+                AddETHReceiveNotifyQuartzJob();
+                AddETHSendNotifyQuartzJob();
+                AddETHSyncBlockQuartzJob();
+                AddETHSyncTransactionQuartzJob();
             }
 
             if (Configuration.GetValue<bool>("CoinsWallet:Litecoin:Enabled"))
@@ -315,6 +325,25 @@ namespace TimemicroCore.CoinsWallet.Quartz
             await scheduler.ScheduleJob(job, trigger);
         }
 
+        async void AddZECSendNotifyQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Zcash.ZECSendNotifyQuartzJob>()
+                .WithIdentity("zecSendNotifyQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("zecSendNotifyQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
         async void AddZECSyncBlockQuartzJob()
         {
             IJobDetail job = JobBuilder.Create<Zcash.ZECSyncBlockQuartzJob>()
@@ -344,6 +373,105 @@ namespace TimemicroCore.CoinsWallet.Quartz
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("zecSyncTransactionQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        #endregion
+
+        #region ETH
+
+        async void AddETHConfirmTransactionQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Ethereum.ETHConfirmTransactionQuartzJob>()
+                .WithIdentity("ethConfirmTransactionQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ethConfirmTransactionQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddETHReceiveNotifyQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Ethereum.ETHReceiveNotifyQuartzJob>()
+                .WithIdentity("ethReceiveNotifyQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ethReceiveNotifyQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddETHSendNotifyQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Ethereum.ETHSendNotifyQuartzJob>()
+                .WithIdentity("ethSendNotifyQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ethSendNotifyQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddETHSyncBlockQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Ethereum.ETHSyncBlockQuartzJob>()
+                .WithIdentity("ethSyncBlockQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ethSyncBlockQuartzJobTrigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+        }
+
+        async void AddETHSyncTransactionQuartzJob()
+        {
+            IJobDetail job = JobBuilder.Create<Ethereum.ETHSyncTransactionQuartzJob>()
+                .WithIdentity("ethSyncTransactionQuartzJob", "group1")
+                .UsingJobData("ApiKey", Configuration["coinswallet:apikey"])
+                .UsingJobData("ApiUrl", Configuration["coinswallet:apiurl"])
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("ethSyncTransactionQuartzJobTrigger", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
                     .WithIntervalInSeconds(5)

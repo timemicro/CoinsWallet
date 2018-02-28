@@ -37,6 +37,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.Dash.RPCClien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Dash", "TimemicroCore.CoinsWallet.Dash\TimemicroCore.CoinsWallet.Dash.csproj", "{6C6C8CCE-0A44-40B2-BE37-7CF36E096BBB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.Ethereum.RPCClient", "..\..\Ethereum.RPCClient\src\TimemicroCore.Ethereum.RPCClient\TimemicroCore.Ethereum.RPCClient.csproj", "{9033F7FD-627A-452B-8DAA-CACD9CD936E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimemicroCore.CoinsWallet.Ethereum", "TimemicroCore.CoinsWallet.Ethereum\TimemicroCore.CoinsWallet.Ethereum.csproj", "{53C1F12C-26DB-4364-9EFD-0A6657C2A681}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +107,14 @@ Global
 		{6C6C8CCE-0A44-40B2-BE37-7CF36E096BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C6C8CCE-0A44-40B2-BE37-7CF36E096BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C6C8CCE-0A44-40B2-BE37-7CF36E096BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9033F7FD-627A-452B-8DAA-CACD9CD936E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9033F7FD-627A-452B-8DAA-CACD9CD936E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9033F7FD-627A-452B-8DAA-CACD9CD936E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9033F7FD-627A-452B-8DAA-CACD9CD936E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C1F12C-26DB-4364-9EFD-0A6657C2A681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C1F12C-26DB-4364-9EFD-0A6657C2A681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C1F12C-26DB-4364-9EFD-0A6657C2A681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C1F12C-26DB-4364-9EFD-0A6657C2A681}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +130,8 @@ Global
 		{65925D63-2AE6-4320-9886-FF24C3D23E0E} = {8D11D662-6D2A-47C0-801A-5E63270A47EB}
 		{B23440A8-5753-48CF-990D-8775871C4B0E} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
 		{6C6C8CCE-0A44-40B2-BE37-7CF36E096BBB} = {8D11D662-6D2A-47C0-801A-5E63270A47EB}
+		{9033F7FD-627A-452B-8DAA-CACD9CD936E5} = {FD9D4AB2-F04B-4C63-B75E-4D68972446D8}
+		{53C1F12C-26DB-4364-9EFD-0A6657C2A681} = {8D11D662-6D2A-47C0-801A-5E63270A47EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0136D57D-96CF-47BF-A1C0-0D12FE695C5C}

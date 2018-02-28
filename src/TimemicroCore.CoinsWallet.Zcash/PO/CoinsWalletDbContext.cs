@@ -27,6 +27,8 @@ namespace TimemicroCore.CoinsWallet.Zcash.PO
 
         public DbSet<SendTransactionDetailsPO> SendTransactionDetails { get; set; }
 
+        public DbSet<SendNotifyLogPO> SendNotifyLogs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ReceiveAddressPO>(entity =>
@@ -94,7 +96,7 @@ namespace TimemicroCore.CoinsWallet.Zcash.PO
 
             modelBuilder.Entity<SendTransactionPO>(entity =>
             {
-                entity.ToTable("BCH_SENDTRANSACTIONS");
+                entity.ToTable("ZEC_SENDTRANSACTIONS");
                 entity.HasKey(x => x.TxId);
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Amount).HasColumnName("AMOUNT");
@@ -104,11 +106,22 @@ namespace TimemicroCore.CoinsWallet.Zcash.PO
 
             modelBuilder.Entity<SendTransactionDetailsPO>(entity =>
             {
-                entity.ToTable("BCH_SENDTRANSACTIONDETAILS");
+                entity.ToTable("ZEC_SENDTRANSACTIONDETAILS");
                 entity.HasKey(x => new { x.TxId, x.Address });
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
                 entity.Property(x => x.Amount).HasColumnName("AMOUNT");
+            });
+
+            modelBuilder.Entity<SendNotifyLogPO>(entity =>
+            {
+                entity.ToTable("ZEC_SENDNOTIFYLOGS");
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.TxId).HasColumnName("TXID");
+                entity.Property(x => x.Address).HasColumnName("ADDRESS");
+                entity.Property(x => x.NotifiedCount).HasColumnName("NOTIFIEDCOUNT");
+                entity.Property(x => x.NotifyResponseText).HasColumnName("NOTIFYRESPONSETEXT");
+                entity.Property(x => x.NextNotifyTime).HasColumnName("NEXTNOTIFYTIME");
             });
         }
     }
