@@ -37,6 +37,7 @@ namespace TimemicroCore.CoinsWallet.WebAPI
             services.AddDbContext<BitcoinCash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<Zcash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
             services.AddDbContext<Litecoin.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
+            services.AddDbContext<Dash.PO.CoinsWalletDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySql")));
 
 
             services.AddSingleton(typeof(ApiServiceAppSettings), new ApiServiceAppSettings(apiKey));
