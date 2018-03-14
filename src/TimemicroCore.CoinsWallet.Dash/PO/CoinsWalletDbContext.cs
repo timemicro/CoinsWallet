@@ -33,7 +33,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
         {
             modelBuilder.Entity<ReceiveAddressPO>(entity =>
             {
-                entity.ToTable("BTC_RECEIVEADDRESSES");
+                entity.ToTable("DASH_RECEIVEADDRESSES");
                 entity.HasKey(x => x.Address);
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
                 entity.Property(x => x.PrivateKey).HasColumnName("PRIVATEKEY");
@@ -42,7 +42,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<BlockPO>(entity =>
             {
-                entity.ToTable("BTC_BLOCKS");
+                entity.ToTable("DASH_BLOCKS");
                 entity.HasKey(x => x.Hash);
                 entity.Property(x => x.Hash).HasColumnName("HASH");
                 entity.Property(x => x.Height).HasColumnName("HEIGHT");
@@ -51,7 +51,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<TransactionPO>(entity =>
             {
-                entity.ToTable("BTC_TRANSACTIONS");
+                entity.ToTable("DASH_TRANSACTIONS");
                 entity.HasKey(x => x.TxId);
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.BlockHash).HasColumnName("BLOCKHASH");
@@ -61,7 +61,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<TransactionDetailsPO>(entity =>
             {
-                entity.ToTable("BTC_TRANSACTIONDETAILS");
+                entity.ToTable("DASH_TRANSACTIONDETAILS");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Id).HasColumnName("ID");
                 entity.Property(x => x.TxId).HasColumnName("TXID");
@@ -72,7 +72,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<ReceiveNotifyLogPO>(entity =>
             {
-                entity.ToTable("BTC_RECEIVENOTIFYLOGS");
+                entity.ToTable("DASH_RECEIVENOTIFYLOGS");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
@@ -84,7 +84,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<SendRequestPO>(entity =>
             {
-                entity.ToTable("BTC_SENDREQUESTS");
+                entity.ToTable("DASH_SENDREQUESTS");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Id).HasColumnName("ID");
                 entity.Property(x => x.OutRequestNo).HasColumnName("OUTREQUESTNO");
@@ -96,7 +96,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<SendTransactionPO>(entity =>
             {
-                entity.ToTable("BTC_SENDTRANSACTIONS");
+                entity.ToTable("DASH_SENDTRANSACTIONS");
                 entity.HasKey(x => x.TxId);
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Amount).HasColumnName("AMOUNT");
@@ -106,7 +106,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<SendTransactionDetailsPO>(entity =>
             {
-                entity.ToTable("BTC_SENDTRANSACTIONDETAILS");
+                entity.ToTable("DASH_SENDTRANSACTIONDETAILS");
                 entity.HasKey(x => new { x.TxId, x.Address });
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
@@ -115,7 +115,7 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
 
             modelBuilder.Entity<SendNotifyLogPO>(entity =>
             {
-                entity.ToTable("BTC_SENDNOTIFYLOGS");
+                entity.ToTable("DASH_SENDNOTIFYLOGS");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");

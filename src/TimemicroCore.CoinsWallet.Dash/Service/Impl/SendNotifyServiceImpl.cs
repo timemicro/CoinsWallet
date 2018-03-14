@@ -70,14 +70,14 @@ namespace TimemicroCore.CoinsWallet.Dash.Service.Impl
                 return;
             }
 
-            var result = new BTCSendNotifyResult()
+            var result = new DASHSendNotifyResult()
             {
-                Data = new List<BTCSendNotifyResultDataItem>()
+                Data = new List<DASHSendNotifyResultDataItem>()
             };
 
             foreach (var item in logs)
             {
-                result.Data.Add(new BTCSendNotifyResultDataItem()
+                result.Data.Add(new DASHSendNotifyResultDataItem()
                 {
                     Address = item.Address,
                     TxId = item.TxId
