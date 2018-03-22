@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,7 +12,7 @@ namespace TimemicroCore.CoinsWallet.Sdk
     {
         public CoinsWalletApiData()
         {
-            Timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
         }
 
         [JsonProperty("service")]
@@ -71,6 +72,12 @@ namespace TimemicroCore.CoinsWallet.Sdk
             }
             var signedText = SignByMD5(key);
             return string.Equals(signedText, Signature);
+        }
+
+        public virtual bool CheckTimestampOffset(TimeSpan minOffset, TimeSpan maxOffset)
+        {
+            var diff = DateTime.UtcNow - DateTime.ParseExact(Timestamp, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            return diff > minOffset && diff < maxOffset;
         }
     }
 }

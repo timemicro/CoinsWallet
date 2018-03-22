@@ -24,7 +24,7 @@ namespace TimemicroCore.CoinsWallet.Api
             var resp = new Resp();
             try
             {
-                if (!CheckTimestamp(req.Timestamp))
+                if (!req.CheckTimestampOffset(TimeSpan.FromMinutes(-5), TimeSpan.FromMinutes(5)))
                 {
                     resp.RespCode = "10001";
                     resp.RespMessage = "时间戳错误";
@@ -38,24 +38,11 @@ namespace TimemicroCore.CoinsWallet.Api
                 }
                 return Execute(req);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 resp.RespCode = "99999";
                 resp.RespMessage = "系统异常";
                 return resp;
-            }
-        }
-
-        private bool CheckTimestamp(string timestamp)
-        {
-            try
-            {
-                var time = DateTime.ParseExact(timestamp, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
-                return time > DateTime.Now.AddMinutes(-5) && time < DateTime.Now.AddMinutes(5);
-            }
-            catch
-            {
-                return false;
             }
         }
     }
