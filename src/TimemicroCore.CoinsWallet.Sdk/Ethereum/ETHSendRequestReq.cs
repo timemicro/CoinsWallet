@@ -26,7 +26,7 @@ namespace TimemicroCore.CoinsWallet.Sdk.Ethereum
             var props = base.GetSignProperties();
             props.Add("address");
             props.Add("amount");
-            props.Add("outRequestId");
+            props.Add("outRequestNo");
             return props;
         }
     }
