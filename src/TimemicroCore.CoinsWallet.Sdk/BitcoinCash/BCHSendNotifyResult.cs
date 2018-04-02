@@ -18,6 +18,9 @@ namespace TimemicroCore.CoinsWallet.Sdk.BitcoinCash
 
     public class BCHSendNotifyResultDataItem
     {
+        [JsonProperty("outRequestNo")]
+        public string OutRequestNo { get; set; }
+
         [JsonProperty("txid")]
         public string TxId { get; set; }
 

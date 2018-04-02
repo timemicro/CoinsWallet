@@ -79,6 +79,7 @@ namespace TimemicroCore.CoinsWallet.Litecoin.Service.Impl
             {
                 result.Data.Add(new LTCSendNotifyResultDataItem()
                 {
+                    OutRequestNo = item.OutRequestNo,
                     Address = item.Address,
                     TxId = item.TxId
                 });

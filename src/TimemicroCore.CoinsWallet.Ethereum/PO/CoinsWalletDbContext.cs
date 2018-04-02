@@ -117,6 +117,7 @@ namespace TimemicroCore.CoinsWallet.Ethereum.PO
             {
                 entity.ToTable("ETH_SENDNOTIFYLOGS");
                 entity.HasKey(x => x.Id);
+                entity.Property(x => x.OutRequestNo).HasColumnName("OUTREQUESTNO");
                 entity.Property(x => x.TxId).HasColumnName("TXID");
                 entity.Property(x => x.Address).HasColumnName("ADDRESS");
                 entity.Property(x => x.NotifiedCount).HasColumnName("NOTIFIEDCOUNT");

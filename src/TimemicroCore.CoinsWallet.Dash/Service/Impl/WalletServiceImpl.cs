@@ -313,6 +313,7 @@ namespace TimemicroCore.CoinsWallet.Dash.Service.Impl
                             {
                                 var sendNotifyLogPO = new SendNotifyLogPO()
                                 {
+                                    OutRequestNo = item.OutRequestNo,
                                     Address = item.Address,
                                     NextNotifyTime = DateTime.Now,
                                     NotifiedCount = 0,

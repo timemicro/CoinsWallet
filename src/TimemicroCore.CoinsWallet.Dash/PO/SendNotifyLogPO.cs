@@ -8,6 +8,8 @@ namespace TimemicroCore.CoinsWallet.Dash.PO
     {
         public long Id { get; set; }
 
+        public string OutRequestNo { get; set; }
+
         public string TxId { get; set; }
 
         public string Address { get; set; }

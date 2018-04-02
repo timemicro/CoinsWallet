@@ -18,6 +18,9 @@ namespace TimemicroCore.CoinsWallet.Sdk.Ethereum
 
     public class ETHSendNotifyResultDataItem
     {
+        [JsonProperty("outRequestNo")]
+        public string OutRequestNo { get; set; }
+
         [JsonProperty("txid")]
         public string TxId { get; set; }
 

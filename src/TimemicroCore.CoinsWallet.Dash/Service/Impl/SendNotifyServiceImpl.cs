@@ -79,6 +79,7 @@ namespace TimemicroCore.CoinsWallet.Dash.Service.Impl
             {
                 result.Data.Add(new DASHSendNotifyResultDataItem()
                 {
+                    OutRequestNo = item.OutRequestNo,
                     Address = item.Address,
                     TxId = item.TxId
                 });

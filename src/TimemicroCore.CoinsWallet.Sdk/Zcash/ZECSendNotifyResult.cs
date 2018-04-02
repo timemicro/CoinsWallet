@@ -18,6 +18,9 @@ namespace TimemicroCore.CoinsWallet.Sdk.Zcash
 
     public class ZECSendNotifyResultDataItem
     {
+        [JsonProperty("outRequestNo")]
+        public string OutRequestNo { get; set; }
+
         [JsonProperty("txid")]
         public string TxId { get; set; }
 

@@ -79,6 +79,7 @@ namespace TimemicroCore.CoinsWallet.Ethereum.Service.Impl
             {
                 result.Data.Add(new ETHSendNotifyResultDataItem()
                 {
+                    OutRequestNo = item.OutRequestNo,
                     Address = item.Address,
                     TxId = item.TxId
                 });

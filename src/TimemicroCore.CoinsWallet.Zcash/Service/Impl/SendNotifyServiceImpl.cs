@@ -79,6 +79,7 @@ namespace TimemicroCore.CoinsWallet.Zcash.Service.Impl
             {
                 result.Data.Add(new ZECSendNotifyResultDataItem()
                 {
+                    OutRequestNo = item.OutRequestNo,
                     Address = item.Address,
                     TxId = item.TxId
                 });

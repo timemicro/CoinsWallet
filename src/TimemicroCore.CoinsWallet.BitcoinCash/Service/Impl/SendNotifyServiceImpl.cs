@@ -79,6 +79,7 @@ namespace TimemicroCore.CoinsWallet.BitcoinCash.Service.Impl
             {
                 result.Data.Add(new BCHSendNotifyResultDataItem()
                 {
+                    OutRequestNo = item.OutRequestNo,
                     Address = item.Address,
                     TxId = item.TxId
                 });
